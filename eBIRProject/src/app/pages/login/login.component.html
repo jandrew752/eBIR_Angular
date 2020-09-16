@@ -1,0 +1,18 @@
+<p>login works!</p>
+<div class="wholeDiv">
+      <div class='form-group'>
+        <form class='form-control'>
+          <h1>Welcome To eBIR!</h1>
+          <h2>Login</h2>
+          <label for='username'>Username:</label>
+          <input [(ngModel)]='username' id='username' type='text' name='username'>
+          <br/>
+          <label for='password'>Password:</label>
+          <input [(ngModel)]='password' id='password' type='password' name='password'>
+          <br/>
+          <button type='submit' (click)='confirm()'>LOGIN</button>
+          <br/>
+          <button type='button' (click)='toRegister()'>Register a new account</button>
+        </form>
+      </div>
+</div>
