@@ -1,0 +1,30 @@
+<table class="table">
+    <tbody>
+        <tr>
+            <td id="bName"> </td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ brewery.breweryType }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ brewery.phone }}</td>
+        </tr>
+        <tr>
+            <th>Website</th>
+            <td>{{ brewery.websiteUrl }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>
+                {{ brewery.street }} <br>
+                {{ brewery.city }}, {{brewery.state}} {{brewery.postalCode}}<br>
+            </td>
+        </tr>
+        <tr>
+            <th>Last Updated</th>
+            <td>{{brewery.updatedAt}}</td>
+        </tr>
+    </tbody>
+</table>>
