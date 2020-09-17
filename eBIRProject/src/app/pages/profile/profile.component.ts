@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Brewery } from 'src/app/models/brewery';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,9 +12,26 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  public u: User = JSON.parse(sessionStorage.getItem('currentUser'));
+
+  constructor(private us: UserService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.favoritesList();
   }
 
+  async favoritesList(): Promise<void> {
+//    this.u.favorites = await this.us.getFavoritesList(this.u.id);
+      this.u.favorites = [];
+  }
+
+  async removeFavorite(id: number): Promise<void> {
+//      await this.us.removeFavorite(id);
+      alert('Successfully deleted brewery from Favorites list');
+      location.reload();
+  }
+
+  goBack(): void {
+    this.router.navigateByUrl('/home');
+  }
 }
