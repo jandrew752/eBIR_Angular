@@ -13,7 +13,6 @@ import { DatePipe } from '@angular/common';
 export class BrewerypageComponent implements OnInit {
   private id: string;
   public brewery: Brewery;
-  public formattedDate: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { 
     // get id from route param
@@ -32,7 +31,6 @@ export class BrewerypageComponent implements OnInit {
   async getBrewery(){
     let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
     this.brewery = <Brewery> response;
-    this.formattedDate = this.brewery.updated_at;
   }
 
   async addToFavorites() {
