@@ -35,33 +35,31 @@
 <div class="form-group">
     <form>
         <textarea id="review_text" class="form-control" maxlength="1500" rows="3" (click)="clearText()">Write a review!</textarea>
-        <button id="review_btn" class="btn btn-primary" (click)="openModal()">Submit Review</button>
+        <button id="review_btn" class="btn btn-primary" (click)="reviewSubmitBtn()" data-toggle="modal" data-target="#submitModal">Submit Review</button>
     </form>
 </div>
 
-<div class="modal fade" *ngIf="showModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">AAAAAAAAA</h5>
+                    <h5 class="modal-title" id="modalTitle">{{brewery.name}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    AAAAAAAAAAAAAAAAAAAAA
+                <div id="modalBody" class="modal-body">
+                    {{reviewText}}
                 </div>
-                <div id="modalFooter" class="modal-footer">
+                <div id="modalFooter" class="modal-footer" [ngStyle]="{'visibility': footerVisible ? 'visible' : 'hidden'}">
                     <button id="submitBtn_modal" type="button" 
-                        class="btn btn-success"
-                        value=1 onclick="processReimb(this.value)"
+                        class="btn btn-success" (click)="submitReview()"
                         data-dismiss="modal">
                         Submit
                     </button>
                     <button id="goBackBtn_modal" type="button" 
                         class="btn btn-danger"
-                        value=0 onclick="processReimb(this.value)"
                         data-dismiss="modal">
                         Go Back
                     </button>

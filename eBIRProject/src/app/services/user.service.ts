@@ -110,5 +110,5 @@ export class UserService {
       console.log(error);
     }
   }
-
+*/
 }
