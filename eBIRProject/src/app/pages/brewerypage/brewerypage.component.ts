@@ -3,6 +3,7 @@ import { Brewery } from '../../models/brewery';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router'
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-brewerypage',
@@ -15,10 +16,12 @@ export class BrewerypageComponent implements OnInit {
   public formattedDate: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { 
+    // get id from route param
     this.route.params.subscribe(params => {
       this.id = params.id;
     });
 
+    // populate data on constructor
     this.getBrewery();
   }
 
@@ -27,12 +30,9 @@ export class BrewerypageComponent implements OnInit {
   }
 
   async getBrewery(){
-    console.log(this.id);
     let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
-    let test = JSON.stringify(response);
-    this.brewery = JSON.parse(test);
-    console.log(this.brewery);
-    this.formattedDate = this.brewery.updated_at.toString();
+    this.brewery = <Brewery> response;
+    this.formattedDate = this.brewery.updated_at;
   }
 
   async addToFavorites() {
@@ -51,7 +51,7 @@ export class BrewerypageComponent implements OnInit {
     // console.log(JSON.parse(postString));
 
     // placeholder --------------
-    console.log(postString)
+    console.log(postJSON)
     let response = await this.http.post(environment.API_URL+environment.PORT + "/addfavorite", postString);
     // --------------------------
 
