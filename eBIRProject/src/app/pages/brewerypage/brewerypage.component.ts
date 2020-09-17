@@ -37,8 +37,24 @@ export class BrewerypageComponent implements OnInit {
 
   async addToFavorites() {
     console.log("added");
-    // 
-    let response = await this.http.post(environment.API_URL)
+    let bString = JSON.stringify(this.brewery);
+
+    // placeholder --------
+    let temp = {id:1, name:"bob"}
+    sessionStorage.setItem("currentUser", JSON.stringify(temp));
+    //-----------
+
+    let postJSON = [JSON.parse(sessionStorage.getItem("currentUser")), this.brewery];
+    let postString = JSON.stringify(postJSON);
+
+    // console.log(postJSON);
+    // console.log(JSON.parse(postString));
+
+    // placeholder --------------
+    console.log(postString)
+    let response = await this.http.post(environment.API_URL+environment.PORT + "/addfavorite", postString);
+    // --------------------------
+
   }
 
 }
