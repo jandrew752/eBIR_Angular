@@ -1,11 +1,11 @@
 <table class="table">
     <tbody>
         <tr>
-            <td id="bName"> </td>
+            <td id="bName"> {{brewery.name}} </td>
         </tr>
         <tr>
             <th>Type</th>
-            <td>{{ brewery.breweryType }}</td>
+            <td>{{ brewery.brewery_type }}</td>
         </tr>
         <tr>
             <th>Phone</th>
@@ -13,13 +13,13 @@
         </tr>
         <tr>
             <th>Website</th>
-            <td>{{ brewery.websiteUrl }}</td>
+            <td>{{ brewery.website_url }}</td>
         </tr>
         <tr>
             <th>Address</th>
             <td>
                 {{ brewery.street }} <br>
-                {{ brewery.city }}, {{brewery.state}} {{brewery.postalCode}}<br>
+                {{ brewery.city }}, {{brewery.state}} {{brewery.postal_code}}<br>
             </td>
         </tr>
         <tr>
