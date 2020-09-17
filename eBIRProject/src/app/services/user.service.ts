@@ -66,8 +66,10 @@ export class UserService {
     }
   }
 
+  */
+
   public async logout(): Promise<void> {
-    const response: Promise<void> = this.http.get<void>(environment.API_URL + ':' + environment.PORT + '/project2/logout',
+    const response: Promise<void> = this.http.get<void>(environment.API_URL + '/logout',
     {
       withCredentials: true
     }).toPromise();
@@ -75,6 +77,7 @@ export class UserService {
     return response;
   }
 
+  /*
   public async checkAuthorization(): Promise<boolean> {
     try {
       const response = await this.http.get<User>(environment.API_URL + ':' + environment.PORT + '/project2/login/check', {
