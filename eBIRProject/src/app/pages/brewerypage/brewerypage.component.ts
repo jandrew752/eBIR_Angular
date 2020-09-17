@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Brewery } from '../models/brewery';
+import { Brewery } from '../../models/brewery';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router'
 
