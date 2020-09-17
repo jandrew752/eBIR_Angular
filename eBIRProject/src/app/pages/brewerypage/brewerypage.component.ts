@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router'
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
+import { BreweryService } from 'src/app/services/brewery.service';
 
 @Component({
   selector: 'app-brewerypage',
@@ -16,7 +17,8 @@ export class BrewerypageComponent implements OnInit {
   private clickCounter: number = 0;
   public showModal:boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { 
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+    private bs: BreweryService) { 
     // get id from route param
     this.route.params.subscribe(params => {
       this.id = params.id;
@@ -32,7 +34,7 @@ export class BrewerypageComponent implements OnInit {
 
   async getBrewery(){
     let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
-    this.brewery = <Brewery> response;
+    this.brewery = this.bs.parseBreweryObject(response);
   }
 
   clearText() {
