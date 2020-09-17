@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <button class="btn btn-primary" (click)="addToFavorites()">Add to Favorites</button>
 
 <table class="table">
@@ -30,3 +31,41 @@
         </tr>
     </tbody>
 </table>
+
+<div class="form-group">
+    <form>
+        <textarea id="review_text" class="form-control" maxlength="1500" rows="3" (click)="clearText()">Write a review!</textarea>
+        <button id="review_btn" class="btn btn-primary" (click)="openModal()">Submit Review</button>
+    </form>
+</div>
+
+<div class="modal fade" *ngIf="showModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">AAAAAAAAA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    AAAAAAAAAAAAAAAAAAAAA
+                </div>
+                <div id="modalFooter" class="modal-footer">
+                    <button id="submitBtn_modal" type="button" 
+                        class="btn btn-success"
+                        value=1 onclick="processReimb(this.value)"
+                        data-dismiss="modal">
+                        Submit
+                    </button>
+                    <button id="goBackBtn_modal" type="button" 
+                        class="btn btn-danger"
+                        value=0 onclick="processReimb(this.value)"
+                        data-dismiss="modal">
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

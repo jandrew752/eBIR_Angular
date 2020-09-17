@@ -13,6 +13,8 @@ import { DatePipe } from '@angular/common';
 export class BrewerypageComponent implements OnInit {
   private id: string;
   public brewery: Brewery;
+  private clickCounter: number = 0;
+  public showModal:boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { 
     // get id from route param
@@ -31,6 +33,20 @@ export class BrewerypageComponent implements OnInit {
   async getBrewery(){
     let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
     this.brewery = <Brewery> response;
+  }
+
+  clearText() {
+    // only clear text if it's the first time they've clicked in the box
+    // ie only clear "Write a review!"
+    if (this.clickCounter == 0) {
+      document.getElementById("review_text").innerHTML = "";
+    }
+    this.clickCounter++;
+  }
+
+  // open confirmation modal
+  openModal() {
+    this.showModal = true;
   }
 
   async addToFavorites() {
