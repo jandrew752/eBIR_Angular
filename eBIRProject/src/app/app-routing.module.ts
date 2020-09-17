@@ -7,11 +7,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrewerypageComponent } from './brewerypage/brewerypage.component';
 
 const routes: Routes = [
-  {path: "brewery/*", component:BrewerypageComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent},
+  { path: "brewery/:id", component:BrewerypageComponent},
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

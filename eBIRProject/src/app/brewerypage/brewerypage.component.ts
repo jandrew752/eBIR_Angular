@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Brewery } from '../models/brewery';
 import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-brewerypage',
@@ -8,22 +9,25 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./brewerypage.component.css']
 })
 export class BrewerypageComponent implements OnInit {
+  private id: string;
   public brewery: Brewery;
   public formattedDate: string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private route: ActivatedRoute) { 
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+    });
 
     this.getBrewery();
+  }
+
+  ngOnInit(): void {
 
   }
 
-  ngOnInit(): void {}
-
   async getBrewery(){
-    let id = this.parseUrl();
-
-    console.log(id);
-    let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + id).toPromise();
+    console.log(this.id);
+    let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
     let test = JSON.stringify(response);
     this.brewery = JSON.parse(test);
     console.log(this.brewery);
