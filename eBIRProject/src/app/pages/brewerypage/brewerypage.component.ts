@@ -68,7 +68,7 @@ export class BrewerypageComponent implements OnInit {
 
     // placeholder --------------
     console.log(postJSON)
-    let response = await this.http.post(environment.API_URL+environment.PORT + "/addfavorite", postString);
+    let response = await this.http.post(environment.API_URL+environment.PORT + "/favorites", postString);
     // --------------------------
 
   }

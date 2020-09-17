@@ -8,7 +8,7 @@
         </tr>
         <tr>
             <th>Type</th>
-            <td>{{ brewery.brewery_type }}</td>
+            <td>{{ brewery.breweryType }}</td>
         </tr>
         <tr>
             <th>Phone</th>
@@ -16,18 +16,18 @@
         </tr>
         <tr>
             <th>Website</th>
-            <td>{{ brewery.website_url }}</td>
+            <td>{{ brewery.websiteUrl }}</td>
         </tr>
         <tr>
             <th>Address</th>
             <td>
                 {{ brewery.street }} <br>
-                {{ brewery.city }}, {{brewery.state}} {{brewery.postal_code}}<br>
+                {{ brewery.city }}, {{brewery.state}} {{brewery.postalCode}}<br>
             </td>
         </tr>
         <tr>
             <th>Last Updated</th>
-            <td>{{ brewery.updated_at | date:'medium'}}</td>
+            <td>{{ brewery.updatedAt | date:'medium'}}</td>
         </tr>
     </tbody>
 </table>
