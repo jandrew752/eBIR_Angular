@@ -9,7 +9,7 @@ export class BreweryService {
   constructor() {}
 
   parseBreweryObject(o: any): Brewery {
-    let b: Brewery = new Brewery();
+    const b: Brewery = new Brewery();
 
     try {
       b.id = o.id;
@@ -28,7 +28,7 @@ export class BreweryService {
 
     } catch (error) {
       console.log(error);
-      console.log("Invalid object. Could not create brewery object")
+      console.log('Invalid object. Could not create brewery object');
       return null;
     }
 
