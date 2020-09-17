@@ -1,28 +1,26 @@
-<p>register works</p>
-<div class="wholeDiv">
-      <div class='form-group'>
-        <form class='form-control'>
-          <h1>Registration</h1>
-          <label for='username'>Username:</label>
-          <input [(ngModel)]='username' id='username' type='text' name='username'>
-          <br/>
-          <label for='password'>Password:</label>
-          <input [(ngModel)]='password' id='password' type='password' name='password'>
-          <br/>
-          <label for='confirmpassword'>Re-Enter Password:</label>
-          <input [(ngModel)]='confirmpassword' id='confirmpassword' type='password' name='confirmpassword'>
-          <br/>
-          <label for='firstname'>Please Enter First Name:</label>
-          <input [(ngModel)]='firstname' id='firstname' type='text' name='firstname'>
-          <br/>
-          <label for='lastname'>Please Enter Last Name:</label>
-          <input [(ngModel)]='lastname' id='lastname' type='text' name='lastname'>
-          <br/>
-          <label for='email'>Please Enter Email Address:</label>
-          <input [(ngModel)]='email' id='email' type='text' name='email'>
-          <br/>
-          <button type='submit' (click)='register()'>Register</button>
-          <button type='submit' (click)='goBack()'>Back to Login</button>
-        </form>
-      </div>
-  </div>
+<div class='form-group'>
+  <form class='form-control'>
+    <h1>Registration</h1>
+    <label for='username'>Username:</label>
+    <input [(ngModel)]='username' id='username' type='text' name='username'>
+    <br/>
+    <label for='password'>Password:</label>
+    <input [(ngModel)]='password' id='password' type='password' name='password'>
+    <br/>
+    <label for='confirmpassword'>Re-Enter Password:</label>
+    <input [(ngModel)]='confirmpassword' id='confirmpassword' type='password' name='confirmpassword'>
+    <br/>
+    <label for='firstname'>Please Enter First Name:</label>
+    <input [(ngModel)]='firstname' id='firstname' type='text' name='firstname'>
+    <br/>
+    <label for='lastname'>Please Enter Last Name:</label>
+    <input [(ngModel)]='lastname' id='lastname' type='text' name='lastname'>
+    <br/>
+    <label for='email'>Please Enter Email Address:</label>
+    <input [(ngModel)]='email' id='email' type='text' name='email'>
+    <br/>
+    <button type='submit' (click)='register()'>Register</button>
+    <button type='submit' (click)='goBack()'>Back to Login</button>
+  </form>
+</div>
+
