@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Review } from '../models/review';
 import { User } from '../models/user';
 
 
@@ -22,7 +23,7 @@ export class UserService {
     return this.currentUser;
   }
 
-/* Placeholder services until further updates
+// Placeholder services until further updates
 
   public async register(u: string, p: string, cp: string, fn: string, ln: string, e: string): Promise<User> {
     try {
@@ -47,7 +48,7 @@ export class UserService {
     }
 }
 
-  public async login(u: string, p: string): Promise<User> {
+  public async login(u: string, p: string): Promise<void> {
     try {
       const response: Promise<User> = this.http.post<User>(environment.API_URL + ':' + environment.PORT + '/project2/login', {
         username: u,
@@ -57,11 +58,8 @@ export class UserService {
       }).toPromise();
 
       this.setUser(await response);
-      sessionStorage.setItem('currentUser', JSON.stringify(user));
 
-      return response;
-
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -88,5 +86,26 @@ export class UserService {
       return false;
     }
   }
-*/
+
+  public async getFavoritesList(id: number): Promise<Review[]> {
+    try {
+      return await this.http.get<Review[]>(
+        environment.API_URL + ':' + environment.PORT + '/project2/user/getFavorites/${id}'
+        ).toPromise();
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  public async removeFavorite(id: number): Promise<void> {
+    try {
+      await this.http.delete(
+        environment.API_URL + ':' + environment.PORT + '/project2/user/getFavorites/${id}'
+        ).toPromise();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 }
