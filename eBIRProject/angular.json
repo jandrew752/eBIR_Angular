@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "eBIRProject"
+    }
+  },
+  "defaultProject": "eBIRProject",
+  "cli": {
+    "analytics": "2a29b320-4a60-470e-87b2-fc4042d718d0"
+  }
 }

@@ -19,4 +19,3 @@ export class Brewery {
     public rating: number;
     public reviews: Review[];
 }
-
