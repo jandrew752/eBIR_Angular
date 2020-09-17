@@ -1,3 +1,4 @@
+import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
