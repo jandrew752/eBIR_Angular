@@ -1,7 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid" style="border:1px solid black">
     <div class="row">
+        <div class="col my-auto text-left">
+            <button id="home_btn" class="btn" (click)="goHome()">Home</button>
+        </div>
         <div class="col my-auto text-right">
-            <button id="logout_btn" class="btn" onclick="logout()">Logout</button>"
+            <button id="logout_btn" class="btn" (click)="logout()">Logout</button>
         </div>
     </div>
 </div>
