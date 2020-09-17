@@ -34,12 +34,4 @@ export class BrewerypageComponent implements OnInit {
     this.formattedDate = this.brewery.updated_at.toString();
   }
 
-  parseUrl(): string {
-    let url = window.location.href;
-    let urlArr = url.split("/");
-    console.log(urlArr);
-    let a = urlArr.length-1; console.log(a);
-    return urlArr[urlArr.length-1];
-  }
-
 }
