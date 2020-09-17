@@ -5,16 +5,16 @@ export class Brewery {
     public id: number;
     public name: string;
     public street: string;
-    public breweryType: string;
+    public brewery_type: string;
     public city: string;
     public state: string;
-    public postalCode: string;
+    public postal_code: string;
     public country: string;
     public longitude: number;
     public latitude: number;
     public phone: string;
-    public websiteUrl: string;
-    public updatedAt: Date;
+    public website_url: string;
+    public updated_at: Date;
 
     public rating: number;
     public reviews: Review[];
