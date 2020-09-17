@@ -24,7 +24,7 @@ export class UserService {
   }
 
 // Placeholder services until further updates
-
+/*
   public async register(u: string, p: string, cp: string, fn: string, ln: string, e: string): Promise<User> {
     try {
       const response: Promise<User> = this.http.post<User>(environment.API_URL + ':' + environment.PORT + '/project2/register', {
