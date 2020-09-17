@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
-<button class="btn btn-primary" (click)="addToFavorites()">Add to Favorites</button>
+<button class="btn btn-primary" *ngIf="!isFavorite" (click)="toggleFavorites()">Add to Favorite</button>
+<button class="btn btn-primary" *ngIf="isFavorite" (click)="toggleFavorites()">Remove from Favorites</button>
 
 <table class="table">
     <tbody>
@@ -32,10 +33,15 @@
     </tbody>
 </table>
 
-<div class="form-group">
+<div class="form-group" *ngIf="!hasSubmittedReview">
     <form>
         <textarea id="review_text" class="form-control" maxlength="1500" rows="3" (click)="clearText()">Write a review!</textarea>
         <button id="review_btn" class="btn btn-primary" (click)="reviewSubmitBtn()" data-toggle="modal" data-target="#submitModal">Submit Review</button>
+    </form>
+</div>
+<div *ngIf="hasSubmittedReview">
+    <form>
+        <p id="submitted_text" class="text-justify">Your review has been received!</p>
     </form>
 </div>
 
