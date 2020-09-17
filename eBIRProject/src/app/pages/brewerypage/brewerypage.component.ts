@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Brewery } from '../../models/brewery';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router'
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-brewerypage',
@@ -32,6 +33,12 @@ export class BrewerypageComponent implements OnInit {
     this.brewery = JSON.parse(test);
     console.log(this.brewery);
     this.formattedDate = this.brewery.updated_at.toString();
+  }
+
+  async addToFavorites() {
+    console.log("added");
+    // 
+    let response = await this.http.post(environment.API_URL)
   }
 
 }
