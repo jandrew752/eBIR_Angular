@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
 
   // send back to home page
   goHome(): void {
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/home');
   }
 
 }
