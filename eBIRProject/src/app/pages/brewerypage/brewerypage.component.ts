@@ -35,15 +35,17 @@ export class BrewerypageComponent implements OnInit {
 
     // check if this brewery is already a favorite or if user already has a review
     let user = JSON.parse(sessionStorage.getItem("currentUser"));
-    let favorites: Brewery[] = us.getFavoritesList(user.id);
 
-    // if brewery is already in favorites
-    for (let b of favorites) {
-      if (b.id == this.brewery.id) {
-        this.isFavorite = true;
-        break;
-      }
-    }
+    // uncomment after getFavoritesList is done
+    // let favorites: Brewery[] = us.getFavoritesList(user.id);
+
+    // // if brewery is already in favorites
+    // for (let b of favorites) {
+    //   if (b.id == this.brewery.id) {
+    //     this.isFavorite = true;
+    //     break;
+    //   }
+    // }
 
     // placeholder, remove when done
       user = {

@@ -1,27 +1,31 @@
-<div id="userInfoDiv">
-  <label for='fullname'>Name:</label>
-  <span> {{ u.firstName }} {{ u.lastName }}</span>
-  <br/>
-  <label for='email'>Email:</label>
-  <span> {{ u.email }}</span>
-  <br/>
-  <button type='submit' (click)='goBack()'>Back to Home</button>
-</div>
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <div id="userInfoDiv" class="col my-auto text-left">
+      <label for='fullname'>Name:</label>
+      <span> {{ u.firstName }} {{ u.lastName }}</span>
+      <br/>
+      <label for='email'>Email:</label>
+      <span> {{ u.email }}</span>
+      <br/>
+    </div>
 
-<div id="favoriteDiv">
-  <h2>Your Favorites</h2>
-  <table width="50%">
-    <tr>
-      <th>Request ID</th>
-      <th>Brewery Name</th>
-      <th>Overall Rating</th>
-      <th>Remove Favorites</th>
-    </tr>
-    <tr *ngFor="let fBrewery of u.favorites">
-      <td><div style="text-align:center">{{ fBrewery.id }}</div></td>
-      <td>{{ fBrewery.name }}</td>
-      <td>{{ fBrewery.rating }}</td>
-      <td><div style="text-align:center"><button type='button' class="fBrewery" id=fBrewery.id (click)='removeFavorite(fBrewery.id)'>Remove</button></div></td>
-    </tr>
-  </table>
+    <div id="favoriteDiv" class="col my-auto text-right">
+      <table width="100%">
+        <h2>Your Favorites</h2>
+        <tr>
+          <th>Request ID</th>
+          <th>Brewery Name</th>
+          <th>Overall Rating</th>
+          <th>Remove Favorites</th>
+        </tr>
+        <tr *ngFor="let fBrewery of u.favorites">
+          <td>{{ fBrewery.id }}</td>
+          <td>{{ fBrewery.name }}</td>
+          <td>{{ fBrewery.rating }}</td>
+          <td><button type='button' class="fBrewery" id=fBrewery.id (click)='removeFavorite(fBrewery.id)'>Remove</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
