@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatGridListModule
+    MatGridListModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

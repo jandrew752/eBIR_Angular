@@ -110,5 +110,21 @@ export class UserService {
       console.log(error);
     }
   }
-  */
+
+  public async updateProfile(f: string, l: string, p: string, e: string): Promise<void> {
+    try {
+      await this.http.put(
+        environment.API_URL + ':' + environment.PORT + '/project2/user/update', {
+          firstname: f,
+          lastname: l,
+          password: p,
+          email: e,
+        }
+      ).toPromise();
+      console.log('Success!');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+ */
 }
