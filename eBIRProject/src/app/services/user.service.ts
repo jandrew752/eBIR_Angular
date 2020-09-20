@@ -27,11 +27,11 @@ export class UserService {
 // Placeholder services until further updates
 
   public async register(u: string, p: string, cp: string, fn: string, ln: string, e: string): Promise<User> {
+    if (p !== cp) { return null; }
     try {
-      const response: Promise<User> = this.http.post<User>(environment.API_URL + ':' + environment.PORT + '/project2/register', {
+      const user: Promise<User> = this.http.post<User>(environment.API_URL + ':' + environment.PORT + '/project2/register', {
         username: u,
         password: p,
-        confirmpassword: cp,
         firstname: fn,
         lastname: ln,
         email: e
@@ -39,10 +39,9 @@ export class UserService {
         withCredentials: true
       }).toPromise();
 
-      this.setUser(await response);
+      this.setUser(await user);
       sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-
-      return response;
+      return user;
 
     } catch (error) {
       console.log(error);
@@ -51,14 +50,15 @@ export class UserService {
 
   public async login(u: string, p: string): Promise<void> {
     try {
-      const response: Promise<User> = this.http.post<User>(environment.API_URL + ':' + environment.PORT + '/project2/login', {
+        const user: Promise<User> = this.http.post<User>(environment.API_URL + ':' + environment.PORT + '/project2/login', {
         username: u,
         password: p
       }, {
         withCredentials: true
       }).toPromise();
 
-      this.setUser(await response);
+        this.setUser(await user);
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
 
     } catch (error) {
       console.log(error);
@@ -70,6 +70,8 @@ export class UserService {
     {
       withCredentials: true
     }).toPromise();
+
+    sessionStorage.clear();
 
     return response;
   }
@@ -109,14 +111,12 @@ export class UserService {
     }
   }
 
-  public async updateProfile(f: string, l: string, p: string, e: string): Promise<void> {
+  public async updateProfile(u: User): Promise<void> {
     try {
+      console.log(u);
       await this.http.put(
         environment.API_URL + ':' + environment.PORT + '/project2/user/update', {
-          firstname: f,
-          lastname: l,
-          password: p,
-          email: e,
+          user: u
         }
       ).toPromise();
       console.log('Success!');

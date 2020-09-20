@@ -31,6 +31,10 @@ export class HomeComponent implements OnInit {
   constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('currentUser') == null) {
+      this.router.navigateByUrl('/login');
+      alert('Please login');
+    }
     this.breweryList = [];
     this.toList();
   }
