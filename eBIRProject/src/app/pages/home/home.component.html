@@ -32,7 +32,7 @@
         <tr *ngFor="let brewery of breweryList | nameFilter: search">
           <td>{{ brewery.name }}</td>
           <td><button type="button" data-toggle="modal" data-target="#myModal" id=brewery.id (click)='breweryInfo(brewery.id)'>View</button></td>
-          <td><button type='button' class="brewery" id=brewery.id (click)='addToFavorites(brewery.id)'>Add</button></td>
+          <td><button type='button' class="brewery" id=brewery.id (click)='add(brewery.id)'>Add</button></td>
         </tr>
       </table>
     </div>

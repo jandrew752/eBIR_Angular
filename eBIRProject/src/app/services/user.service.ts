@@ -125,10 +125,12 @@ export class UserService {
     }
   }
 
-  public async addFavorite(b: Brewery): Promise<void> {
+  public async addFavorite(u: User, b: Brewery): Promise<void> {
     try {
       await this.http.put(
-        environment.API_URL + ':' + environment.PORT + '/project2/user/addFavorite/', { brewery: b }
+        environment.API_URL + ':' + environment.PORT + '/project2/user/addFavorite/', {
+          user: u,
+          brewery: b }
       ).toPromise();
       console.log('Success!');
     } catch (error) {
