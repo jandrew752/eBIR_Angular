@@ -116,6 +116,7 @@ export class BrewerypageComponent implements OnInit {
   }
 
   async toggleFavorites() {
+
     let bString = JSON.stringify(this.brewery);
 
     let postJSON = [JSON.parse(sessionStorage.getItem("currentUser")), this.brewery];
