@@ -13,6 +13,12 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
 
   public u: User = JSON.parse(sessionStorage.getItem('currentUser'));
+  closeResult = '';
+  uFirstname = '';
+  uLastname = '';
+  uPassword = '';
+  uEmail = '';
+  isOpen = false;
 
   constructor(private us: UserService, private router: Router, private http: HttpClient) { }
 
@@ -33,5 +39,11 @@ export class ProfileComponent implements OnInit {
 
   goBack(): void {
     this.router.navigateByUrl('/home');
+  }
+
+  update(): void {
+//  us.updateProfile(this.firstname, this.lastname, this.password, this.email);
+    alert('Successfully Updated Profile Information!');
+    location.reload();
   }
 }

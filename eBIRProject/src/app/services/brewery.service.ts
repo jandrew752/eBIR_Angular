@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Brewery } from '../models/brewery';
+import { Review } from '../models/review';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,10 @@ export class BreweryService {
     }
 
     return b;
+  }
+
+  async getReviews(b: Brewery) {
+    let response = await (environment.API_URL + "/");
   }
 
 }
