@@ -8,14 +8,14 @@
       <label for='email'>Email:</label>
       <span> {{ u.email }}</span>
       <br/>
-      <button type="button" data-toggle="modal" data-target="#myModal">Update Profile</button>
+      <button type="button" data-toggle="modal" data-target="#myModal">UPDATE PROFILE</button>
     </div>
 
     <div id="favoriteDiv" class="col my-auto text-right">
       <table width="100%">
-        <h2>Your Favorites</h2>
+        <h2>My Favorites</h2>
         <tr>
-          <th>Request ID</th>
+          <th>Brewery ID</th>
           <th>Brewery Name</th>
           <th>Overall Rating</th>
           <th>Remove Favorites</th>
@@ -30,47 +30,6 @@
     </div>
   </div>
 </div>
-
-<ng-template #content let-modal>
-  <div class="modalDiv">
-    <div class="modal-header">
-      <h2 class="modal-title" id="profile-update-modal">Update Profile Information</h2>
-        <button type="button" class="close"
-                aria-label="Close" (click)=
-                "modal.dismiss('Cross click'); isOpen=false;">
-            <span aria-hidden="true">
-                ×
-            </span>
-        </button>
-    </div>
-
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="updateFName">First Name:</label>
-                <input [(ngModel)]='uFirstname' id='uFirstname' type='text' name='firstname'>
-                <br/>
-                <label for="updateLName">Last Name:</label>
-                <input [(ngModel)]='uLastname' id='uLastname' type='text' name='lastname'>
-                <br/>
-                <label for="updatePWord">Password:</label>
-                <input [(ngModel)]='uPassword' id='uPassword' type='password' name='password'>
-                <br/>
-                <label for="updateEmail">Email:</label>
-                <input [(ngModel)]='uEmail' id='uEmail' type='text' name='email'>
-            </div>
-        </form>
-    </div>
-
-    <div class="modal-footer">
-        <button type="button"
-            class="btn btn-outline-dark"
-            (click)="update()">
-            Update
-        </button>
-    </div>
-  </div>
-</ng-template>
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
