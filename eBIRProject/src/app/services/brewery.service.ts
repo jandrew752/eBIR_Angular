@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Brewery } from '../models/brewery';
 import { Review } from '../models/review';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BreweryService {
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   parseBreweryObject(o: any): Brewery {
     const b: Brewery = new Brewery();
@@ -38,7 +40,7 @@ export class BreweryService {
   }
 
   async getReviews(b: Brewery) {
-    let response = await (environment.API_URL + "/");
+    return this.http.get(environment.API_URL + "/reviews/" + b.id);
   }
 
 }

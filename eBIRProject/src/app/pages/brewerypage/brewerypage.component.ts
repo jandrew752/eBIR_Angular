@@ -17,6 +17,7 @@ import { Review } from 'src/app/models/review';
 export class BrewerypageComponent implements OnInit {
   private id: string;
   public brewery: Brewery;
+  public reviews: Review[];
   private clickCounter: number = 0;
   public reviewText: string = "";
   public footerVisible:boolean = true;
@@ -59,8 +60,15 @@ export class BrewerypageComponent implements OnInit {
   ngOnInit(): void {}
 
   async getBrewery() {
+    // get brewery info
     let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
     this.brewery = this.bs.parseBreweryObject(response);
+
+    // get reviews from DB
+    let obs = await this.bs.getReviews(this.brewery);
+    obs.subscribe(r => {
+      this.reviews.push(<Review> r);
+    })
   }
 
   clearText() {
