@@ -23,6 +23,10 @@ export class ProfileComponent implements OnInit {
   constructor(private us: UserService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('currentUser') == null) {
+      this.router.navigateByUrl('/login');
+      alert('Please login');
+    }
     this.favoritesList();
   }
 
@@ -42,7 +46,12 @@ export class ProfileComponent implements OnInit {
   }
 
   update(): void {
-//  us.updateProfile(this.firstname, this.lastname, this.password, this.email);
+    if (this.uFirstname !== '') { this.u.firstName = this.uFirstname; }
+    if (this.uLastname !== '') { this.u.lastName = this.uLastname; }
+    if (this.uPassword !== '') { this.u.password = this.uPassword; }
+    if (this.uEmail !== '') { this.u.email = this.uEmail; }
+    sessionStorage.setItem('currentUser', JSON.stringify(this.u));
+    this.us.updateProfile(this.u);
     alert('Successfully Updated Profile Information!');
     location.reload();
   }

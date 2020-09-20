@@ -1,5 +1,69 @@
 <app-navbar></app-navbar>
 
-<div>
-  <button type='button' (click)='toProfile()'>PROFILE</button>
+<div class="container-fluid">
+  <div class="row">
+    <div id=optionsDiv class="col my-auto text-left">
+      <button type='button' (click)='toProfile()'>MY PROFILE</button>
+      <br/>
+      <br/>
+      <label for='inputName'>Search By Name: </label>
+      <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName'>
+      <button type='button' (click)='nameSearch()'>SEARCH</button>
+      <br/>
+      <label for='inputState'>Search By State: </label>
+      <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState'>
+      <button type='button' (click)='stateSearch()'>SEARCH</button>
+      <br/>
+      <label for='inputZipcode'>Search By Zipcode: </label>
+      <input [(ngModel)]='inputZipcode' id='inputZipcode' type='text' name='inputZipcode'>
+      <button type='button' (click)='zipcodeSearch()'>SEARCH</button>
+    </div>
+
+    <div id="breweryDiv" class="col my-auto text-right">
+      <table width="100%">
+        <h2>Breweries</h2>
+        <label for="search">Search Results By Name: </label>
+        <input type="text" name="search" [(ngModel)]='search'>
+        <tr>
+          <th>Brewery Name</th>
+          <th>Brewery Info</th>
+          <th>Add to Favorites</th>
+        </tr>
+        <tr *ngFor="let brewery of breweryList | nameFilter: search">
+          <td>{{ brewery.name }}</td>
+          <td><button type="button" data-toggle="modal" data-target="#myModal" id=brewery.id (click)='breweryInfo(brewery.id)'>View</button></td>
+          <td><button type='button' class="brewery" id=brewery.id (click)='addToFavorites(brewery.id)'>Add</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title" id="profile-update-modal">{{ name }}</h2>
+          <button type="button" class="close" data-dismiss='modal'>
+                  ×
+          </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+              <p>Brewery Type: {{ breweryType }}</p>
+              <p>Phone Number: {{ phone }}</p>
+              <p>Address: {{ street }}, {{ city }}, {{ state }} {{ postalCode }}</p>
+              <p>Website: <a href='{{ websiteUrl }}'>{{ websiteUrl }}</a></p>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>

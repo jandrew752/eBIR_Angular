@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   // clear session storage before sending back to home page
   logout(): void {
     sessionStorage.clear();
-    this.us.logout();
+//    this.us.logout();
     this.router.navigateByUrl('/login');
   }
 

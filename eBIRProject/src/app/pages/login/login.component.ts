@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   public username = '';
   public password = '';
-  public u: User;
+  public u: User = new User();
 
   constructor(private us: UserService, private router: Router, private http: HttpClient) { }
 
@@ -22,6 +22,14 @@ export class LoginComponent implements OnInit {
 
   confirm(): void {
 //  this.us.login(username, password);
+    this.u.id = 1;
+    this.u.firstName = 'Julien';
+    this.u.lastName = 'Andrew';
+    this.u.username = 'jandrew';
+    this.u.password = 'qwerty';
+    this.u.email = 'jandrew@gmail.com';
+
+    sessionStorage.setItem('currentUser', JSON.stringify(this.u));
     this.router.navigateByUrl('/home');
   }
 
