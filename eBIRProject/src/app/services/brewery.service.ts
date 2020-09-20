@@ -172,6 +172,14 @@ export class BreweryService {
     }
   }
 
+  async getSingleBrewery(id) {
+    try {
+      return await this.http.get('https://api.openbrewerydb.org/breweries/' + id).toPromise();
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   parseBreweryObject(o: any): Brewery {
     const b: Brewery = new Brewery();
 

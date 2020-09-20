@@ -62,7 +62,7 @@ export class BrewerypageComponent implements OnInit {
   ngOnInit(): void {}
 
  async populateData() {
-    let temp = await this.bs.getBrewery(this.id);
+    let temp = await this.bs.getSingleBrewery(this.id);
     this.brewery = this.bs.parseBreweryObject(temp);
     
     // get reviews from DB
