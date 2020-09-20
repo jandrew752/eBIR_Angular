@@ -6,15 +6,15 @@
       <button type='button' (click)='toProfile()'>MY PROFILE</button>
       <br/>
       <br/>
-      <label for='inputName'>Search by name: </label>
+      <label for='inputName'>Search By Name: </label>
       <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName'>
       <button type='button' (click)='nameSearch()'>SEARCH</button>
       <br/>
-      <label for='inputState'>Search by state: </label>
+      <label for='inputState'>Search By State: </label>
       <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState'>
       <button type='button' (click)='stateSearch()'>SEARCH</button>
       <br/>
-      <label for='inputZipcode'>Search by zipcode: </label>
+      <label for='inputZipcode'>Search By Zipcode: </label>
       <input [(ngModel)]='inputZipcode' id='inputZipcode' type='text' name='inputZipcode'>
       <button type='button' (click)='zipcodeSearch()'>SEARCH</button>
     </div>
@@ -22,12 +22,15 @@
     <div id="breweryDiv" class="col my-auto text-right">
       <table width="100%">
         <h2>Breweries</h2>
+        <br/>
+        <label for="search">Search Results By Name: </label>
+        <input type="text" name="search" [(ngModel)]='search'>
         <tr>
           <th>Brewery Name</th>
           <th>Brewery Info</th>
           <th>Add to Favorites</th>
         </tr>
-        <tr *ngFor="let brewery of breweryList">
+        <tr *ngFor="let brewery of breweryList | nameFilter: search">
           <td>{{ brewery.name }}</td>
           <td><button type="button" data-toggle="modal" data-target="#myModal" id=brewery.id (click)='breweryInfo(brewery.id)'>View</button></td>
           <td><button type='button' class="brewery" id=brewery.id (click)='addToFavorites(brewery.id)'>Add</button></td>

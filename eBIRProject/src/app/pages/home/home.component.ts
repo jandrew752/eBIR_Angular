@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   breweryList: Brewery[] = [];
   editedList: Brewery[] = [];
+  search = '';
   zipcode: number;
   name = '';
   breweryType = '';
