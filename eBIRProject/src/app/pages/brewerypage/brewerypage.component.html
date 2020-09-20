@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<button class="btn btn-primary" *ngIf="!isFavorite" (click)="toggleFavorites()">Add to Favorite</button>
-<button class="btn btn-primary" *ngIf="isFavorite" (click)="toggleFavorites()">Remove from Favorites</button>
+<button class="btn btn-success" *ngIf="!isFavorite" (click)="toggleFavorites()">Add to Favorite</button>
+<button class="btn btn-danger" *ngIf="isFavorite" (click)="toggleFavorites()">Remove from Favorites</button>
 
 <table class="table">
     <tbody>

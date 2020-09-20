@@ -46,4 +46,13 @@ export class BreweryService {
     return this.http.get(environment.API_URL + "/reviews/" + b.id);
   }
 
+  async getBrewery(id) {
+    // get brewery info
+    return await this.http.get("https://api.openbrewerydb.org/breweries/" + id).toPromise();
+  }
+
+  async submitReview(r: Review) {
+    return await this.http.put(environment.API_URL + "/review", JSON.stringify(r)).toPromise();
+  }
+  
 }

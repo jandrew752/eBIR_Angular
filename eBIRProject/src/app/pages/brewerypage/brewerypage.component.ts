@@ -32,7 +32,9 @@ export class BrewerypageComponent implements OnInit {
     });
 
     // populate data on constructor
-    this.getBrewery();
+    this.populateData();
+
+
 
     // check if this brewery is already a favorite or if user already has a review
     let user = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -59,17 +61,16 @@ export class BrewerypageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async getBrewery() {
-    // get brewery info
-    let response = await this.http.get("https://api.openbrewerydb.org/breweries/" + this.id).toPromise();
-    this.brewery = this.bs.parseBreweryObject(response);
-
+ async populateData() {
+    let temp = await this.bs.getBrewery(this.id);
+    this.brewery = this.bs.parseBreweryObject(temp);
+    
     // get reviews from DB
     let obs = await this.bs.getReviews(this.brewery);
     obs.subscribe(r => {
       this.reviews.push(<Review> r);
     })
-  }
+ }
 
   clearText() {
     // only clear text if it's the first time they've clicked in the box
@@ -109,22 +110,21 @@ export class BrewerypageComponent implements OnInit {
         "reviewText" : this.reviewText
       };
 
-      this.hasSubmittedReview = true;
+      this.hasSubmittedReview = true; // move after HTTP req once backend is ready
       // send put req
-      let response = await this.http.put(environment.API_URL + "/review", JSON.stringify(review)).toPromise();
+      this.bs.submitReview(review);
       //this.hasSubmittedReview = true;
   }
 
   async toggleFavorites() {
-
     let bString = JSON.stringify(this.brewery);
 
     let postJSON = [JSON.parse(sessionStorage.getItem("currentUser")), this.brewery];
     let postString = JSON.stringify(postJSON);
 
     // console.log(postJSON)
+    this.isFavorite = !this.isFavorite; // move this after HTTP req once backend is ready
     let response = await this.http.post(environment.API_URL + "/user/favorites", postString).toPromise();
-    this.isFavorite = !this.isFavorite;
   }
 
 }
