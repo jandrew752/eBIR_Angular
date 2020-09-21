@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   breweryList: Brewery[] = [];
   editedList: Brewery[] = [];
   search = '';
+  id: number = null;
   zipcode: number;
   name = '';
   breweryType = '';
@@ -40,6 +41,12 @@ export class HomeComponent implements OnInit {
     }
     this.breweryList = [];
     this.toList();
+  }
+
+  toBreweryPage(): void {
+    console.log(this.id);
+    this.bs.breweryList = [];
+    this.router.navigateByUrl('/brewery/:' + this.id);
   }
 
   toProfile(): void {
@@ -101,6 +108,7 @@ export class HomeComponent implements OnInit {
     this.editedList.forEach(b => {
       if (b.id === id) {
         console.log(b);
+        this.id = b.id;
         this.name = b.name;
         this.breweryType = b.breweryType;
         this.phone = b.phone;

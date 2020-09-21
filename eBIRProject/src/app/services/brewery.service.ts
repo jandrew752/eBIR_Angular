@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Key } from 'protractor';
 import { Brewery } from '../models/brewery';
 import { Review } from '../models/review';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 
 // testing
-import {Server} from "miragejs"
+//  {Server} from "miragejs";
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -173,7 +173,7 @@ export class BreweryService {
     }
   }
 
-  async getSingleBrewery(id) {
+  async getSingleBrewery(id: number): Promise<any> {
     try {
       return await this.http.get('https://api.openbrewerydb.org/breweries/' + id).toPromise();
     } catch(error) {
@@ -215,5 +215,5 @@ export class BreweryService {
   async submitReview(r: Review) {
     return await this.http.put(environment.API_URL + "/review", JSON.stringify(r)).toPromise();
   }
-  
+
 }

@@ -27,12 +27,10 @@
         <tr>
           <th>Brewery Name</th>
           <th>Brewery Info</th>
-          <th>Add to Favorites</th>
         </tr>
         <tr *ngFor="let brewery of breweryList | nameFilter: search">
           <td>{{ brewery.name }}</td>
           <td><button type="button" data-toggle="modal" data-target="#myModal" id=brewery.id (click)='breweryInfo(brewery.id)'>View</button></td>
-          <td><button type='button' class="brewery" id=brewery.id (click)='add(brewery.id)'>Add</button></td>
         </tr>
       </table>
     </div>
@@ -56,12 +54,14 @@
       <div class="modal-body">
         <form>
             <div class="form-group">
-              <p>Brewery Type: {{ breweryType }}</p>
               <p>Phone Number: {{ phone }}</p>
               <p>Address: {{ street }}, {{ city }}, {{ state }} {{ postalCode }}</p>
-              <p>Website: <a href='{{ websiteUrl }}'>{{ websiteUrl }}</a></p>
             </div>
         </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" data-dismiss='modal' (click)='toBreweryPage()'>View Page</button>
       </div>
 
     </div>

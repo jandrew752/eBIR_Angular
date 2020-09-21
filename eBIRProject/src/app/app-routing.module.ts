@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent},
-  { path: "brewery/:id", component:BrewerypageComponent},
+  { path: 'brewery/:id', component:BrewerypageComponent},
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

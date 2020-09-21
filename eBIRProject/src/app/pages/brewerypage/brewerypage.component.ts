@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Brewery } from '../../models/brewery';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router'
-import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 import { BreweryService } from 'src/app/services/brewery.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Review } from 'src/app/models/review';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-brewerypage',
@@ -24,7 +24,7 @@ export class BrewerypageComponent implements OnInit {
   public hasSubmittedReview:boolean = false;
   public isFavorite:boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
+  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute,
     private bs: BreweryService, private us: UserService) {
     // get id from route param
     this.route.params.subscribe(params => {
@@ -59,14 +59,20 @@ export class BrewerypageComponent implements OnInit {
     // ----------
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (sessionStorage.getItem('currentUser') == null) {
+      this.router.navigateByUrl('/login');
+      alert('Please login');
+    }
+  }
 
  async populateData() {
-    let temp = await this.bs.getSingleBrewery(this.id);
+    const numID: number = parseInt(this.id.substring(1));
+    let temp = await this.bs.getSingleBrewery(numID);
     this.brewery = this.bs.parseBreweryObject(temp);
-    
+
     // get reviews from DB
-    let obs = await this.bs.getReviews(this.brewery);
+    const obs = await this.bs.getReviews(this.brewery);
     obs.subscribe(r => {
       this.reviews.push(<Review> r);
     })
