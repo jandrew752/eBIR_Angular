@@ -102,6 +102,7 @@ export class BreweryService {
     for (const brewery of list) {
       const b = this.parseBreweryObject(brewery);
       this.breweryList.push(b);
+      // console.log(b);
     }
     this.abbreviatedState = this.stateDictionary[state.split(' ').join('_')];
     console.log(this.abbreviatedState);
