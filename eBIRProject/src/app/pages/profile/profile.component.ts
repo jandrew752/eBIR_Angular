@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  public u: User = JSON.parse(sessionStorage.getItem('currentUser'));
+  u: User = JSON.parse(sessionStorage.getItem('currentUser'));
   closeResult = '';
   uFirstname = '';
   uLastname = '';
@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
 
   async favoritesList(): Promise<void> {
 //    this.u.favorites = await this.us.getFavoritesList(this.u.id);
-      this.u.favorites = [];
+      this.u.favorites = new Set();
   }
 
   async removeFavorite(id: number): Promise<void> {

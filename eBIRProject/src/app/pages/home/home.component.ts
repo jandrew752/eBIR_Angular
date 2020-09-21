@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Brewery } from 'src/app/models/brewery';
 import { BreweryService } from 'src/app/services/brewery.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ import { BreweryService } from 'src/app/services/brewery.service';
 })
 export class HomeComponent implements OnInit {
 
+  u: User = JSON.parse(sessionStorage.getItem('currentUser'));
+  favoritesList: Set<Brewery> = new Set();
   breweryList: Brewery[] = [];
   editedList: Brewery[] = [];
   search = '';
@@ -68,15 +71,29 @@ export class HomeComponent implements OnInit {
     this.breweryList = this.bs.breweryList;
   }
 
-  addToFavorites(id: number): void {
-//    this.editedList = this.breweryList;
-//    this.editedList.forEach(b => {
-//      if (b.id === id) {
-//        this.us.addFavorite(b);
-//        alert('Successfully Added to Favorites!');
-//      }
-//    });
-    alert('Untested addToFavorites() method');
+  add(id: number): void {
+    const b = this.favoriteSelect(id);
+    if (b === null) {
+      alert('Problem Adding Brewery to Favorites');
+    } else {
+    this.favoritesList.add(b);
+    this.u.favorites = this.favoritesList;
+    console.log(this.u);
+    sessionStorage.setItem('currentUser', JSON.stringify(this.u));
+    alert('Successfully Added to Favorites!');
+    }
+  }
+
+  favoriteSelect(id: number): Brewery {
+    this.editedList = this.breweryList;
+    let brewery: Brewery = null;
+    this.editedList.forEach(b => {
+      if (b.id === id) {
+//      this.us.addFavorite(this.u, b);
+        brewery = b;
+      }
+    });
+    return brewery;
   }
 
   breweryInfo(id: number): void {

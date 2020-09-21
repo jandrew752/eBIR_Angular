@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { Brewery } from 'src/app/models/brewery';
 
 @Component({
   selector: 'app-login',
@@ -22,12 +23,15 @@ export class LoginComponent implements OnInit {
 
   confirm(): void {
 //  this.us.login(username, password);
+
+// Delete sample code and uncomment above code when connection to backend attempted/completed
     this.u.id = 1;
     this.u.firstName = 'Julien';
     this.u.lastName = 'Andrew';
     this.u.username = 'jandrew';
     this.u.password = 'qwerty';
     this.u.email = 'jandrew@gmail.com';
+    this.u.favorites = new Set();
 
     sessionStorage.setItem('currentUser', JSON.stringify(this.u));
     this.router.navigateByUrl('/home');
