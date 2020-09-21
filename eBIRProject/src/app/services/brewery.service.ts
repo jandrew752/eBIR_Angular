@@ -1,8 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Key } from 'protractor';
-import { Observable } from 'rxjs';
 import { Brewery } from '../models/brewery';
+import { Review } from '../models/review';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
+
+// testing
+import {Server} from "miragejs"
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +102,7 @@ export class BreweryService {
     for (const brewery of list) {
       const b = this.parseBreweryObject(brewery);
       this.breweryList.push(b);
+      // console.log(b);
     }
     this.abbreviatedState = this.stateDictionary[state.split(' ').join('_')];
     console.log(this.abbreviatedState);
@@ -167,6 +173,14 @@ export class BreweryService {
     }
   }
 
+  async getSingleBrewery(id) {
+    try {
+      return await this.http.get('https://api.openbrewerydb.org/breweries/' + id).toPromise();
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   parseBreweryObject(o: any): Brewery {
     const b: Brewery = new Brewery();
 
@@ -194,4 +208,12 @@ export class BreweryService {
     return b;
   }
 
+  async getReviews(b: Brewery) {
+    return this.http.get(environment.API_URL + "/reviews/" + b.id);
+  }
+
+  async submitReview(r: Review) {
+    return await this.http.put(environment.API_URL + "/review", JSON.stringify(r)).toPromise();
+  }
+  
 }

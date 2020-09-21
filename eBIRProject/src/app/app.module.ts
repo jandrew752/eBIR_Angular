@@ -7,6 +7,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrewerypageComponent } from './pages/brewerypage/brewerypage.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -17,6 +18,8 @@ import { NameFilterPipe } from './filters/name-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    BrewerypageComponent,
     LoginComponent,
     HomeComponent,
     RegisterComponent,
