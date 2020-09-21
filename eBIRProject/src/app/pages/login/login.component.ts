@@ -23,10 +23,9 @@ export class LoginComponent implements OnInit {
 
   confirm(): void {
     this.us.login(this.username, this.password);
-
-    if (this.us.getUser === null) {
+    if (this.us.getUser() === null) {
         alert('Problem registering account!');
-      }
+    }
     else {
       sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser));
       this.router.navigateByUrl('/home');
