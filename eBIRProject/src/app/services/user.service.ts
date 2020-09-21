@@ -46,13 +46,14 @@ export class UserService {
   public async login(u: string, p: string): Promise<void> {
     try {
         const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
-        username: u,
-        password: p
+        "username": u,
+        "password": p
       }, {
         withCredentials: true
       }).toPromise();
 
         this.setUser(await user);
+        console.log(user);
         sessionStorage.setItem('currentUser', JSON.stringify(user));
 
     } catch (error) {

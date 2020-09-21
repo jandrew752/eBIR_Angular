@@ -22,19 +22,29 @@ export class LoginComponent implements OnInit {
   }
 
   confirm(): void {
-//  this.us.login(username, password);
+    this.us.login(this.username, this.password);
 
 // Delete sample code and uncomment above code when connection to backend attempted/completed
-    this.u.id = 1;
-    this.u.firstName = 'Julien';
-    this.u.lastName = 'Andrew';
-    this.u.username = 'jandrew';
-    this.u.password = 'qwerty';
-    this.u.email = 'jandrew@gmail.com';
-    this.u.favorites = new Set();
+    // this.u.id = 1;
+    // this.u.firstName = 'Julien';
+    // this.u.lastName = 'Andrew';
+    // this.u.username = 'jandrew';
+    // this.u.password = 'qwerty';
+    // this.u.email = 'jandrew@gmail.com';
+    // this.u.favorites = new Set();
+
+    let user = this.us.getUser();
+    console.log(user);
+
+    let loggedIn:boolean = (user != null);
 
     sessionStorage.setItem('currentUser', JSON.stringify(this.u));
-    this.router.navigateByUrl('/home');
+
+    if (loggedIn) {
+      this.router.navigateByUrl('/home');
+    } else {
+      // do stuff -> display message
+    }
   }
 
   toRegister(): void {
