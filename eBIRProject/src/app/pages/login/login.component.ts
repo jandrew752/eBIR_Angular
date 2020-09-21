@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
   confirm(): void {
     this.us.login(this.username, this.password);
 
-// Delete sample code and uncomment above code when connection to backend attempted/completed
-
     if (this.us.getUser === null) {
         alert('Problem registering account!');
       }

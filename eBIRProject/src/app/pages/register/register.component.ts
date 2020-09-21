@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       this.u.email = this.email;
 
       this.us.register(this.u);
-      if (this.us.getUser === null) {
+      if (this.us.getUser() === null) {
         alert('Problem registering account!');
       }
       else {

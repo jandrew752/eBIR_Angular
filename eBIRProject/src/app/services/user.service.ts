@@ -12,7 +12,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  currentUser: User;
+  currentUser: User = null;
 
   constructor(private router: Router, private http: HttpClient) { }
 
