@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { Brewery } from '../models/brewery';
 import { Review } from '../models/review';
 import { User } from '../models/user';
@@ -26,15 +26,10 @@ export class UserService {
 
 // Placeholder services until further updates
 
-  public async register(u: string, p: string, cp: string, fn: string, ln: string, e: string): Promise<User> {
-    if (p !== cp) { return null; }
+  public async register(u: User): Promise<User> {
     try {
-      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/register', {
-        username: u,
-        password: p,
-        firstname: fn,
-        lastname: ln,
-        email: e
+      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
+        user: u
       }, {
         withCredentials: true
       }).toPromise();
@@ -50,7 +45,7 @@ export class UserService {
 
   public async login(u: string, p: string): Promise<void> {
     try {
-        const user: Promise<User> = this.http.post<User>(environment.API_URL + '/login', {
+        const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
         username: u,
         password: p
       }, {
@@ -65,7 +60,7 @@ export class UserService {
     }
   }
 
-  public async logout(): Promise<void> {
+/*  public async logout(): Promise<void> {
     const response: Promise<void> = this.http.get<void>(environment.API_URL + '/logout',
     {
       withCredentials: true
@@ -75,6 +70,7 @@ export class UserService {
 
     return response;
   }
+*/
 
   public async checkAuthorization(): Promise<boolean> {
     try {

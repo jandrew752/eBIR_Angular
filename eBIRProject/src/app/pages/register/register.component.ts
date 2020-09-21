@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
+  public u: User = new User();
   public username = '';
   public password = '';
   public confirmpassword: '';
@@ -23,8 +25,19 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-//    this.us.register(username, password, confirmpassword, firstname, lastname, email);
-    this.router.navigateByUrl('/home');
+    if (this.password !== this.confirmpassword) {
+      alert('Passwords do not match');
+    }
+    else {
+      this.u.firstName = this.firstname;
+      this.u.lastName = this.lastname;
+      this.u.username = this.username;
+      this.u.password = this.password;
+      this.u.email = this.email;
+
+      this.us.register(this.u);
+      this.router.navigateByUrl('/home');
+    }
   }
 
   goBack(): void {
