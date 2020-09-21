@@ -26,7 +26,7 @@ export class UserService {
 
 // Placeholder services until further updates
 
-  public async register(u: User): Promise<User> {
+  public async register(u: User): Promise<void> {
     try {
       const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
         user: u
@@ -35,8 +35,6 @@ export class UserService {
       }).toPromise();
 
       this.setUser(await user);
-      sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-      return user;
 
     } catch (error) {
       console.log(error);
@@ -53,7 +51,6 @@ export class UserService {
       }).toPromise();
 
         this.setUser(await user);
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
 
     } catch (error) {
       console.log(error);

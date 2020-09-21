@@ -36,7 +36,13 @@ export class RegisterComponent implements OnInit {
       this.u.email = this.email;
 
       this.us.register(this.u);
-      this.router.navigateByUrl('/home');
+      if (this.us.getUser === null) {
+        alert('Problem registering account!');
+      }
+      else {
+        sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser));
+        this.router.navigateByUrl('/home');
+      }
     }
   }
 
