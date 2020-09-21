@@ -50,13 +50,6 @@ export class BrewerypageComponent implements OnInit {
     //   }
     // }
 
-    // placeholder, remove when done
-      user = {
-        id : 1,
-        name : "bob"
-      }
-      sessionStorage.setItem("currentUser", JSON.stringify(user));
-    // ----------
   }
 
   ngOnInit(): void {
