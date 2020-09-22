@@ -168,9 +168,10 @@ export class BrewerypageComponent implements OnInit {
     this.isFavorite = !this.isFavorite; // move this after HTTP req once backend is ready
     // update backend with new value
     console.log("updateUser on: " + u);
-    this.us.updateUser(u);
-
-    // const response = await this.http.post(environment.API_URL + '/user/favorites', postString).toPromise();
+    console.log(JSON.stringify(u));
+    let userResponse:User;
+    let response = (await this.us.updateUser(u)).subscribe(resp => userResponse = <User>resp);
+    console.log(userResponse);
   }
 
 }

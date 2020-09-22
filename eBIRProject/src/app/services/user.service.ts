@@ -155,9 +155,20 @@ export class UserService {
   }
 
   public async updateUser(u: User) {
-    return this.http.put(environment.API_URL + '/user/', {
-      u
-    }, {
+    // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
+    let temp = JSON.stringify(u);
+    
+    return this.http.put(environment.API_URL + '/user/', JSON.parse(temp), {
+      withCredentials: true
+    });
+  }
+
+  public async updateUserPass(u: User) {
+     // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
+     let temp = JSON.stringify(u);
+    
+    return this.http.patch(environment.API_URL + '/user/', 
+      JSON.parse(temp), {
       withCredentials: true
     });
   }
