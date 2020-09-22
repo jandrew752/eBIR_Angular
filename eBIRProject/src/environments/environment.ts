@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  API_URL: `http://localhost:8006/eBIR`
+  API_URL: `http://localhost:8080/eBIR`
 };
+
+// test
 
 /*
  * For easier debugging in development mode, you can import the following file
