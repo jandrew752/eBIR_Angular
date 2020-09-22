@@ -28,7 +28,7 @@ export class UserService {
 
   public async register(u: User): Promise<void> {
     try {
-      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/eBIR/user/register', {
+      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
         user: u
       }, {
         withCredentials: true
