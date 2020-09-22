@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  register(): void {
+  async register(): Promise<void> {
     if (this.password !== this.confirmpassword) {
       alert('Passwords do not match');
     }
@@ -35,13 +35,12 @@ export class RegisterComponent implements OnInit {
       this.u.password = this.password;
       this.u.email = this.email;
 
-      this.us.register(this.u);
-      if (this.us.getUser() === null) {
-        alert('Problem registering account!');
+      if (await this.us.register(this.u)) {
+        sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser()));
+        this.router.navigateByUrl('/home');
       }
       else {
-        sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser));
-        this.router.navigateByUrl('/home');
+        alert('Problem registering account!');
       }
     }
   }

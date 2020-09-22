@@ -26,26 +26,34 @@ export class UserService {
 
 // Placeholder services until further updates
 
-  public async register(u: User): Promise<void> {
+  public async register(u: User): Promise<boolean> {
     try {
+      console.log(u);
       const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
-        user: u
+        username : u.username,
+        password : u.password,
+        firstName : u.firstName,
+        lastName : u.lastName,
+        email : u.email,
+        favorites : []
       }, {
         withCredentials: true
       }).toPromise();
 
       this.setUser(await user);
+      return true;
 
     } catch (error) {
       console.log(error);
+      return false;
     }
 }
 
-  public async login(u: string, p: string): Promise<Boolean> {
+  public async login(u: string, p: string): Promise<boolean> {
     try {
         const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
-        "username": u,
-        "password": p
+        username: u,
+        password: p
       }, {
         withCredentials: true
       }).toPromise();
@@ -58,8 +66,6 @@ export class UserService {
         } else {
           return false;
         }
-        
-
     } catch (error) {
       console.log(error);
     }
