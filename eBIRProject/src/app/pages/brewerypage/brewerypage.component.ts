@@ -73,11 +73,13 @@ export class BrewerypageComponent implements OnInit {
     const user: User = JSON.parse(sessionStorage.getItem('currentUser'));
 
     // // uncomment after getFavoritesList is done
-    let favorites = await this.us.getFavoritesList(user.username);
+    let favorites = user.favorites;
 
     // if brewery is already in favorites
     for (let b of favorites) {
       if (b == this.brewery.id) {
+        console.log(b);
+        console.log(this.brewery.id);
         this.isFavorite = true;
         break;
       }
