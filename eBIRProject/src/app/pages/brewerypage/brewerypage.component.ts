@@ -59,7 +59,7 @@ export class BrewerypageComponent implements OnInit {
   }
 
  async populateData() {
-    const temp = await this.bs.getSingleBrewery(this.id);
+    const temp = await this.bs.getSingleBrewery(this.id.substring(1));
     this.brewery = this.bs.parseBreweryObject(temp);
 
     // get reviews from DB
