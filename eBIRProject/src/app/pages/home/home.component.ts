@@ -40,12 +40,12 @@ export class HomeComponent implements OnInit {
       alert('Please login');
     }
     this.breweryList = [];
+    this.bs.breweryList = [];
     this.toList();
   }
 
   toBreweryPage(): void {
     console.log(this.id);
-    this.bs.breweryList = [];
     this.router.navigateByUrl('/brewery/:' + this.id);
   }
 

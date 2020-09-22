@@ -34,11 +34,18 @@
 </table>
 
 <div class="form-group" *ngIf="!hasSubmittedReview">
+  <form [formGroup]="ratingsForm" (ngSubmit)="onSubmit()">
+    <select formControlName="rating">
+      <option disabled>Select Rating</option>
+      <option>Select Rating</option>
+      <option *ngFor="let r of ratings">{{ r }}</option>
+    </select>
+  </form>
     <form>
-        <textarea id="review_text" class="form-control" maxlength="1500" rows="3"
-            (click)="clearText()">Write a review!</textarea>
-        <button id="review_btn" class="btn btn-primary" (click)="reviewSubmitBtn()" data-toggle="modal"
-            data-target="#submitModal">Submit Review</button>
+      <textarea id="review_text" class="form-control" maxlength="1500" rows="3"
+          (click)="clearText()">Write a review!</textarea>
+      <button id="review_btn" class="btn btn-primary" (click)="reviewSubmitBtn()" data-toggle="modal"
+          data-target="#submitModal">Submit Review</button>
     </form>
 </div>
 <div *ngIf="hasSubmittedReview">
@@ -72,8 +79,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div id="modalBody" class="modal-body">
-                {{reviewText}}
+              <p>{{ ratingText }}</p>
+              <p>{{ reviewText }}</p>
             </div>
             <div id="modalFooter" class="modal-footer" [ngStyle]="{'visibility': footerVisible ? 'visible' : 'hidden'}">
                 <button id="submitBtn_modal" type="button" class="btn btn-success" (click)="submitReview()"

@@ -7,7 +7,7 @@ import { Subject, Observable } from 'rxjs';
 
 // testing
 //  {Server} from "miragejs";
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
