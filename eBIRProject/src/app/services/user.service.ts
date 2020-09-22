@@ -41,7 +41,7 @@ export class UserService {
     }
 }
 
-  public async login(u: string, p: string): Promise<void> {
+  public async login(u: string, p: string): Promise<Boolean> {
     try {
         const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
         "username": u,
@@ -49,10 +49,16 @@ export class UserService {
       }, {
         withCredentials: true
       }).toPromise();
-
-        this.setUser(await user);
-        console.log(user);
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        if (user != null) {
+          this.setUser(await user);
+          console.log(this.getUser);
+          console.log(user);
+          sessionStorage.setItem('currentUser', JSON.stringify(user));
+          return true;
+        } else {
+          return false;
+        }
+        
 
     } catch (error) {
       console.log(error);
