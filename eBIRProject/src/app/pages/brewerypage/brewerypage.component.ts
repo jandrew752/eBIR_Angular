@@ -37,6 +37,7 @@ export class BrewerypageComponent implements OnInit {
     // get id from route param
     this.route.params.subscribe(params => {
       this.id = params.id;
+      console.log(this.id);
     });
 
     // populate data on constructor
@@ -59,7 +60,7 @@ export class BrewerypageComponent implements OnInit {
   }
 
  async populateData() {
-    const temp = await this.bs.getSingleBrewery(this.id.substring(1));
+    const temp = await this.bs.getSingleBrewery(this.id);
     this.brewery = this.bs.parseBreweryObject(temp);
 
     // get reviews from DB

@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
 
   toBreweryPage(): void {
     console.log(this.id);
-    this.router.navigateByUrl('/brewery/:' + this.id);
+    this.router.navigateByUrl('/brewery/' + this.id);
   }
 
   toProfile(): void {
