@@ -73,7 +73,7 @@ export class UserService {
 
   public async checkAuthorization(): Promise<boolean> {
     try {
-      const response = await this.http.get<User>(environment.API_URL + '/login', {
+      const response = await this.http.get<User>(environment.API_URL + '/login/check', {
         withCredentials: true
       }).toPromise();
 
@@ -85,9 +85,10 @@ export class UserService {
     }
   }
 
-  public async getFavoritesList(username: string): Promise<Review[]> {
+  // returns int[] of brewery ids
+  public async getFavoritesList(username: string): Promise<number[]> {
     try {
-      return await this.http.get<Review[]>(
+      return await this.http.get<number[]>(
         environment.API_URL + '/user/${username}/favorites'
         ).toPromise();
     } catch (error) {

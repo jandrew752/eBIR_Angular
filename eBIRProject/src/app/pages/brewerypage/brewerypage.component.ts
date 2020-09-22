@@ -44,19 +44,6 @@ export class BrewerypageComponent implements OnInit {
 
 
 
-    // check if this brewery is already a favorite or if user already has a review
-    const user = JSON.parse(sessionStorage.getItem('currentUser'));
-
-    // uncomment after getFavoritesList is done
-    // let favorites: Brewery[] = us.getFavoritesList(user.id);
-
-    // // if brewery is already in favorites
-    // for (let b of favorites) {
-    //   if (b.id == this.brewery.id) {
-    //     this.isFavorite = true;
-    //     break;
-    //   }
-    // }
 
   }
 
@@ -81,6 +68,20 @@ export class BrewerypageComponent implements OnInit {
     obs.subscribe(r => {
       this.reviews.push(r as Review);
     });
+
+    // check if this brewery is already a favorite or if user already has a review
+    const user = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    // uncomment after getFavoritesList is done
+    let favorites = await this.us.getFavoritesList(user.id);
+
+    // if brewery is already in favorites
+    for (let b of favorites) {
+      if (b == this.brewery.id) {
+        this.isFavorite = true;
+        break;
+      }
+    }
  }
 
   clearText() {
@@ -138,6 +139,7 @@ export class BrewerypageComponent implements OnInit {
     const review: Review = {
         submitter : user,
         brewery : this.brewery,
+        rating: this.rating, // CHECK
         reviewText : this.reviewText
       };
 
