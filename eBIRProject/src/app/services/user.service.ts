@@ -112,7 +112,7 @@ export class UserService {
   public async addFavorite(u: User, b: number): Promise<void> {
     try {
       await this.http.put(
-        environment.API_URL + '/user/' + u.username + '/favorites', { user: u, brewery: b }
+        environment.API_URL + '/user/' + u.username + '/favorites' + b, { user: u, brewery: b }
       ).toPromise();
       console.log('Success!');
     } catch (error) {
@@ -149,6 +149,11 @@ export class UserService {
     }
   }
 
-
-
+  public async updateUser(u: User) {
+    return this.http.put(environment.API_URL + '/user/', {
+      u
+    }, {
+      withCredentials: true
+    });
+  }
 }
