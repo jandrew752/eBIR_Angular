@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
     let brewery: Brewery = null;
     this.editedList.forEach(b => {
       if (b.id === id) {
-//      this.us.addFavorite(this.u, b);
+        this.us.addFavorite(this.u, b.id);
         brewery = b;
       }
     });
