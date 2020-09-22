@@ -154,6 +154,11 @@ export class UserService {
     }
   }
 
-
-
+  public async updateUser(u: User) {
+    return this.http.put(environment.API_URL + '/user/', {
+      u
+    }, {
+      withCredentials: true
+    });
+  }
 }

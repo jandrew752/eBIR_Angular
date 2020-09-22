@@ -16,7 +16,7 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./brewerypage.component.css']
 })
 export class BrewerypageComponent implements OnInit {
-  private id: string; // numeric ID of the brewery. It's only a string for convenience
+  private id: string;
   public brewery: Brewery;
   public reviews: Review[];
   private clickCounter = 0;
@@ -37,15 +37,12 @@ export class BrewerypageComponent implements OnInit {
     // get id from route param
     this.route.params.subscribe(params => {
       this.id = params.id;
-      console.log(this.id);
     });
 
     // populate data on constructor
     this.populateData();
 
-
-
-
+    console.log(JSON.parse(sessionStorage.getItem("currentUser")));
   }
 
   ngOnInit(): void {
@@ -78,8 +75,6 @@ export class BrewerypageComponent implements OnInit {
     // if brewery is already in favorites
     for (let b of favorites) {
       if (b == this.brewery.id) {
-        console.log(b);
-        console.log(this.brewery.id);
         this.isFavorite = true;
         break;
       }
@@ -154,14 +149,28 @@ export class BrewerypageComponent implements OnInit {
   }
 
   async toggleFavorites() {
-    const bString = JSON.stringify(this.brewery);
+    let u: User = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    const postJSON = [JSON.parse(sessionStorage.getItem('currentUser')), this.brewery];
-    const postString = JSON.stringify(postJSON);
 
-    // console.log(postJSON)
+    if (this.isFavorite) { // remove if already fav
+      let i = u.favorites.indexOf(this.brewery.id);
+      if (i > -1) {
+        u.favorites.splice(i, 1);
+      }
+    } else { // add otherwise
+      u.favorites.push(parseInt(this.id));
+    }
+    console.log(u.favorites);
+
+    // update session storage
+    sessionStorage.setItem("currentUser", JSON.stringify(u));
+    // toggle favorite boolean
     this.isFavorite = !this.isFavorite; // move this after HTTP req once backend is ready
-    const response = await this.http.post(environment.API_URL + '/user/favorites', postString).toPromise();
+    // update backend with new value
+    console.log("updateUser on: " + u);
+    this.us.updateUser(u);
+
+    // const response = await this.http.post(environment.API_URL + '/user/favorites', postString).toPromise();
   }
 
 }
