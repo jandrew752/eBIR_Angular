@@ -51,14 +51,19 @@ export class ProfileComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
 
-  update(): void {
-    if (this.uFirstname !== '') { this.u.firstName = this.uFirstname; }
-    if (this.uLastname !== '') { this.u.lastName = this.uLastname; }
-    if (this.uPassword !== '') { this.u.password = this.uPassword; }
-    if (this.uEmail !== '') { this.u.email = this.uEmail; }
-    sessionStorage.setItem('currentUser', JSON.stringify(this.u));
-    this.us.updateProfile(this.u);
-    alert('Successfully Updated Profile Information!');
-    location.reload();
+  async update(): Promise<void> {
+    if (this.uFirstname.trim() !== '') { this.u.firstName = this.uFirstname; }
+    if (this.uLastname.trim() !== '') { this.u.lastName = this.uLastname; }
+    if (this.uPassword.trim() !== '') {
+      this.u.password = this.uPassword;
+    } else { this.u.password = ''; }
+    if (this.uEmail.trim() !== '') { this.u.email = this.uEmail; }
+    if (await this.us.updateProfile(this.u)) {
+      sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser()));
+      alert('Successfully Updated Profile Information!');
+      location.reload();
+    } else {
+      alert('Problem updating profile!');
+    }
   }
 }

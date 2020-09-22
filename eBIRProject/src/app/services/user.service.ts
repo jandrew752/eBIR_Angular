@@ -112,7 +112,7 @@ export class UserService {
   public async addFavorite(u: User, b: number): Promise<void> {
     try {
       await this.http.put(
-        environment.API_URL + '/user/' + u.username + '/favorites' + b, { user: u, brewery: b }
+        environment.API_URL + '/user/:' + u.username + '/favorites', { user: u, brewery: b }
       ).toPromise();
       console.log('Success!');
     } catch (error) {
@@ -124,28 +124,33 @@ export class UserService {
   public async removeFavorite(username: string, id: number): Promise<void> {
     try {
       await this.http.delete(
-        environment.API_URL + '/user/'+ username + '/' +id
+        environment.API_URL + '/user/:' + username + '/:' + id
         ).toPromise();
     } catch (error) {
       console.log(error);
     }
   }
 
-  public async updateProfile(u: User): Promise<void> {
+  public async updateProfile(u: User): Promise<boolean> {
     try {
       console.log(u);
-      await this.http.put(
+      const user: User = await this.http.put<User>(
         environment.API_URL + '/user/' + u.username, {
           username : u.username,
           password : u.password,
           firstName : u.firstName,
           lastName : u.lastName,
-          email : u.email,
+          email : u.email
         }
       ).toPromise();
+
+      this.setUser(user);
       console.log('Success!');
+      return true;
+
     } catch (error) {
       console.log(error);
+      return false;
     }
   }
 
