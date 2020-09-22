@@ -138,7 +138,6 @@ export class BrewerypageComponent implements OnInit {
     const review: Review = {
         submitter : user,
         brewery : this.brewery,
-        rating: this.rating,
         reviewText : this.reviewText
       };
 
