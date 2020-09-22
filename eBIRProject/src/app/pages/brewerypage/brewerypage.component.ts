@@ -69,10 +69,10 @@ export class BrewerypageComponent implements OnInit {
     });
 
     // check if this brewery is already a favorite or if user already has a review
-    const user = JSON.parse(sessionStorage.getItem('currentUser'));
+    const user: User = JSON.parse(sessionStorage.getItem('currentUser'));
 
     // // uncomment after getFavoritesList is done
-    let favorites = await this.us.getFavoritesList(user.id);
+    let favorites = await this.us.getFavoritesList(user.username);
 
     // if brewery is already in favorites
     for (let b of favorites) {

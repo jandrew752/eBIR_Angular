@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Brewery } from 'src/app/models/brewery';
 import { User } from 'src/app/models/user';
+import { BreweryService } from 'src/app/services/brewery.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,8 +20,9 @@ export class ProfileComponent implements OnInit {
   uPassword = '';
   uEmail = '';
   isOpen = false;
+  favoriteBreweryList: Brewery[] = [];
 
-  constructor(private us: UserService, private router: Router, private http: HttpClient) { }
+  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     // if (sessionStorage.getItem('currentUser') == null) {
@@ -32,11 +34,15 @@ export class ProfileComponent implements OnInit {
 
   async favoritesList(): Promise<void> {
     this.u.favorites = await this.us.getFavoritesList(this.u.username);
+
+    this.u.favorites.forEach(async f => {
+      this.favoriteBreweryList.push(await this.bs.getSingleBrewery(f));
+    });
       // this.u.favorites = new Set();
   }
 
   async removeFavorite(id: number): Promise<void> {
-//      await this.us.removeFavorite(id);
+      await this.us.removeFavorite(this.u.username, id);
       alert('Successfully deleted brewery from Favorites list');
       location.reload();
   }
@@ -53,6 +59,6 @@ export class ProfileComponent implements OnInit {
     sessionStorage.setItem('currentUser', JSON.stringify(this.u));
     this.us.updateProfile(this.u);
     alert('Successfully Updated Profile Information!');
-//    location.reload();
+    location.reload();
   }
 }
