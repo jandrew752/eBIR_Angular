@@ -210,11 +210,11 @@ export class BreweryService {
   }
 
   async getReviews(b: Brewery) {
-    return this.http.get(environment.API_URL + "/reviews/" + b.id);
+    return this.http.get(environment.API_URL + '/brewery/' + b.id + '/reviews');
   }
 
   async submitReview(r: Review) {
-    return await this.http.put(environment.API_URL + "/review", JSON.stringify(r)).toPromise();
+    return await this.http.put(environment.API_URL + '/review', JSON.stringify(r)).toPromise();
   }
 
 }

@@ -135,7 +135,7 @@ export class UserService {
     try {
       console.log(u);
       await this.http.put(
-        environment.API_URL + '/user/update', {
+        environment.API_URL + '/user/' + u.username, {
           username : u.username,
           password : u.password,
           firstName : u.firstName,

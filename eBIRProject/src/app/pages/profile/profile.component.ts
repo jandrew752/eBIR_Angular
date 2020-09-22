@@ -53,6 +53,6 @@ export class ProfileComponent implements OnInit {
     sessionStorage.setItem('currentUser', JSON.stringify(this.u));
     this.us.updateProfile(this.u);
     alert('Successfully Updated Profile Information!');
-    location.reload();
+//    location.reload();
   }
 }
