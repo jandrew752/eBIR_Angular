@@ -135,8 +135,12 @@ export class UserService {
     try {
       console.log(u);
       await this.http.put(
-        environment.API_URL + '/user/{u.username}', {
-          user: u
+        environment.API_URL + '/user/update', {
+          username : u.username,
+          password : u.password,
+          firstName : u.firstName,
+          lastName : u.lastName,
+          email : u.email,
         }
       ).toPromise();
       console.log('Success!');
