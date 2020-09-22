@@ -14,7 +14,7 @@ import { User } from 'src/app/models/user';
 export class HomeComponent implements OnInit {
 
   u: User = JSON.parse(sessionStorage.getItem('currentUser'));
-  favoritesList: Set<Brewery> = new Set();
+  favoritesList: Brewery[] = [];
   breweryList: Brewery[] = [];
   editedList: Brewery[] = [];
   search = '';
@@ -35,10 +35,10 @@ export class HomeComponent implements OnInit {
   constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('currentUser') == null) {
-      this.router.navigateByUrl('/login');
-      alert('Please login');
-    }
+    // if (sessionStorage.getItem('currentUser') == null) {
+    //   this.router.navigateByUrl('/login');
+    //   alert('Please login');
+    // }
     this.breweryList = [];
     this.bs.breweryList = [];
     this.toList();
@@ -83,11 +83,20 @@ export class HomeComponent implements OnInit {
     if (b === null) {
       alert('Problem Adding Brewery to Favorites');
     } else {
-    this.favoritesList.add(b);
-    this.u.favorites = this.favoritesList;
+    this.favoritesList.push(b);
+    }
+    //this.u.favorites = this.favoritesList;
+    
     console.log(this.u);
     sessionStorage.setItem('currentUser', JSON.stringify(this.u));
     alert('Successfully Added to Favorites!');
+    
+  }
+
+  // since breweries in backend are just int[], we have to populate brewery[] on front end with public API
+  async updateFavorites() {
+    for (let id of this.u.favorites) {
+      this.favoritesList.push(await this.bs.getSingleBrewery(id));
     }
   }
 

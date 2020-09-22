@@ -28,7 +28,7 @@ export class UserService {
 
   public async register(u: User): Promise<void> {
     try {
-      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/eBIR/user/register', {
+      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
         user: u
       }, {
         withCredentials: true
@@ -41,16 +41,24 @@ export class UserService {
     }
 }
 
-  public async login(u: string, p: string): Promise<void> {
+  public async login(u: string, p: string): Promise<Boolean> {
     try {
         const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
-        username: u,
-        password: p
+        "username": u,
+        "password": p
       }, {
         withCredentials: true
       }).toPromise();
-
-        this.setUser(await user);
+        if (user != null) {
+          this.setUser(await user);
+          console.log(this.getUser);
+          console.log(user);
+          sessionStorage.setItem('currentUser', JSON.stringify(user));
+          return true;
+        } else {
+          return false;
+        }
+        
 
     } catch (error) {
       console.log(error);
@@ -83,10 +91,11 @@ export class UserService {
     }
   }
 
-  public async getFavoritesList(id: number): Promise<Review[]> {
+  // returns int[] of brewery ids
+  public async getFavoritesList(username: string): Promise<number[]> {
     try {
-      return await this.http.get<Review[]>(
-        environment.API_URL + '/user/getFavorites/${id}'
+      return await this.http.get<number[]>(
+        environment.API_URL + '/user/${username}/favorites'
         ).toPromise();
     } catch (error) {
       console.log(error);
@@ -94,10 +103,22 @@ export class UserService {
     }
   }
 
-  public async removeFavorite(id: number): Promise<void> {
+  public async addFavorite(u: User, b: number): Promise<void> {
+    try {
+      await this.http.put(
+        environment.API_URL + '/user/{u.username}/favorites', { user: u, brewery: b }
+      ).toPromise();
+      console.log('Success!');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // id is id of brewery, need to check either on front end or back end if {id} is even in user favorites list
+  public async removeFavorite(username: string, id: number): Promise<void> {
     try {
       await this.http.delete(
-        environment.API_URL + '/user/deleteFavorites/${id}'
+        environment.API_URL + '/user/${username}/{id}'
         ).toPromise();
     } catch (error) {
       console.log(error);
@@ -108,7 +129,7 @@ export class UserService {
     try {
       console.log(u);
       await this.http.put(
-        environment.API_URL + '/user/update', {
+        environment.API_URL + '/user/{u.username}', {
           user: u
         }
       ).toPromise();
@@ -118,15 +139,6 @@ export class UserService {
     }
   }
 
-  public async addFavorite(u: User, b: number): Promise<void> {
-    try {
-      await this.http.put(
-        environment.API_URL + '/user/addFavorite/', { user: u, brewery: b }
-      ).toPromise();
-      console.log('Success!');
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
 
 }

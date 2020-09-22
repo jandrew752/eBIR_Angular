@@ -23,16 +23,16 @@ export class ProfileComponent implements OnInit {
   constructor(private us: UserService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('currentUser') == null) {
-      this.router.navigateByUrl('/login');
-      alert('Please login');
-    }
+    // if (sessionStorage.getItem('currentUser') == null) {
+    //   this.router.navigateByUrl('/login');
+    //   alert('Please login');
+    // }
     this.favoritesList();
   }
 
   async favoritesList(): Promise<void> {
-//    this.u.favorites = await this.us.getFavoritesList(this.u.id);
-      this.u.favorites = new Set();
+    this.u.favorites = await this.us.getFavoritesList(this.u.username);
+      // this.u.favorites = new Set();
   }
 
   async removeFavorite(id: number): Promise<void> {

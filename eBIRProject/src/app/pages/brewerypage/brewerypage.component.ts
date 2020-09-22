@@ -16,7 +16,7 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./brewerypage.component.css']
 })
 export class BrewerypageComponent implements OnInit {
-  private id: string;
+  private id: string; // numeric ID of the brewery. It's only a string for convenience
   public brewery: Brewery;
   public reviews: Review[];
   private clickCounter = 0;
@@ -44,27 +44,14 @@ export class BrewerypageComponent implements OnInit {
 
 
 
-    // check if this brewery is already a favorite or if user already has a review
-    const user = JSON.parse(sessionStorage.getItem('currentUser'));
-
-    // uncomment after getFavoritesList is done
-    // let favorites: Brewery[] = us.getFavoritesList(user.id);
-
-    // // if brewery is already in favorites
-    // for (let b of favorites) {
-    //   if (b.id == this.brewery.id) {
-    //     this.isFavorite = true;
-    //     break;
-    //   }
-    // }
 
   }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('currentUser') == null) {
-      this.router.navigateByUrl('/login');
-      alert('Please login');
-    }
+    // if (sessionStorage.getItem('currentUser') == null) {
+    //   this.router.navigateByUrl('/login');
+    //   alert('Please login');
+    // }
   }
 
   onSubmit(): void {
@@ -72,8 +59,7 @@ export class BrewerypageComponent implements OnInit {
   }
 
  async populateData() {
-    const numID: number = parseInt(this.id.substring(1));
-    const temp = await this.bs.getSingleBrewery(numID);
+    const temp = await this.bs.getSingleBrewery(this.id);
     this.brewery = this.bs.parseBreweryObject(temp);
 
     // get reviews from DB
@@ -81,6 +67,20 @@ export class BrewerypageComponent implements OnInit {
     obs.subscribe(r => {
       this.reviews.push(r as Review);
     });
+
+    // check if this brewery is already a favorite or if user already has a review
+    const user = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    // // uncomment after getFavoritesList is done
+    let favorites = await this.us.getFavoritesList(user.id);
+
+    // if brewery is already in favorites
+    for (let b of favorites) {
+      if (b == this.brewery.id) {
+        this.isFavorite = true;
+        break;
+      }
+    }
  }
 
   clearText() {
@@ -138,6 +138,7 @@ export class BrewerypageComponent implements OnInit {
     const review: Review = {
         submitter : user,
         brewery : this.brewery,
+        rating: this.rating, // CHECK
         reviewText : this.reviewText
       };
 

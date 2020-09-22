@@ -14,7 +14,7 @@ export class Brewery {
     public latitude: number;
     public phone: string;
     public websiteUrl: string;
-    public updatedAt: Date;
+    public updatedAt: BigInt;
 
     public rating: number;
     public reviews: Review[];

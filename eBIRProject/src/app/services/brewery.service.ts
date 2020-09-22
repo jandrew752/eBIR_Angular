@@ -173,7 +173,7 @@ export class BreweryService {
     }
   }
 
-  async getSingleBrewery(id: number): Promise<any> {
+  async getSingleBrewery(id: number | string): Promise<any> {
     try {
       return await this.http.get('https://api.openbrewerydb.org/breweries/' + id).toPromise();
     } catch(error) {
@@ -197,7 +197,7 @@ export class BreweryService {
       b.latitude = o.latitude;
       b.phone = o.phone;
       b.websiteUrl = o.website_url;
-      b.updatedAt = o.updated_at;
+      b.updatedAt = o.updated_at.valueOf();
 
     } catch (error) {
       console.log(error);
@@ -209,11 +209,11 @@ export class BreweryService {
   }
 
   async getReviews(b: Brewery) {
-    return this.http.get(environment.API_URL + "/reviews/" + b.id);
+    return this.http.get(environment.API_URL + "reviews/" + b.id);
   }
 
   async submitReview(r: Review) {
-    return await this.http.put(environment.API_URL + "/review", JSON.stringify(r)).toPromise();
+    return await this.http.put(environment.API_URL + "review", JSON.stringify(r)).toPromise();
   }
 
 }

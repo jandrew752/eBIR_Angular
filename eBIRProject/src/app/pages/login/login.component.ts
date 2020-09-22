@@ -21,22 +21,21 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  confirm(): void {
-    this.us.login(this.username, this.password);
-    if (this.us.getUser() === null) {
-        alert('Problem logging into account!');
-        this.u.firstName = 'Julien';
-        this.u.lastName = 'Andrew';
-        this.u.username = 'jandrew';
-        this.u.password = 'qwerty';
-        this.u.email = 'jandrew@gmail.com';
-        sessionStorage.setItem('currentUser', JSON.stringify(this.u));
-        this.router.navigateByUrl('/home');
-    }
-    else {
-      sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser));
+  async confirm(): Promise<void> {
+    
+    // if logged in
+    if (await this.us.login(this.username, this.password)) {
+      sessionStorage.setItem('currentUser', JSON.stringify(this.u));
       this.router.navigateByUrl('/home');
+    } else { // not logged in
+      alert('Problem logging into account!');
     }
+    // this.u.firstName = 'Julien';
+    // this.u.lastName = 'Andrew';
+    // this.u.username = 'jandrew';
+    // this.u.password = 'qwerty';
+    // this.u.email = 'jandrew@gmail.com';
+      
   }
 
   toRegister(): void {
