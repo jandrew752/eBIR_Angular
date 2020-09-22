@@ -173,7 +173,7 @@ export class BreweryService {
     }
   }
 
-  async getSingleBrewery(id: number): Promise<any> {
+  async getSingleBrewery(id: number | string): Promise<any> {
     try {
       return await this.http.get('https://api.openbrewerydb.org/breweries/' + id).toPromise();
     } catch(error) {
