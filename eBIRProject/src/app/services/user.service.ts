@@ -12,7 +12,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  currentUser: User;
+  currentUser: User = null;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -26,17 +26,15 @@ export class UserService {
 
 // Placeholder services until further updates
 
-  public async register(u: User): Promise<User> {
+  public async register(u: User): Promise<void> {
     try {
-      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
+      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/eBIR/user/register', {
         user: u
       }, {
         withCredentials: true
       }).toPromise();
 
       this.setUser(await user);
-      sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-      return user;
 
     } catch (error) {
       console.log(error);
@@ -122,7 +120,7 @@ export class UserService {
     }
   }
 
-  public async addFavorite(u: User, b: Brewery): Promise<void> {
+  public async addFavorite(u: User, b: number): Promise<void> {
     try {
       await this.http.put(
         environment.API_URL + '/user/addFavorite/', { user: u, brewery: b }
