@@ -76,6 +76,7 @@ export class ProfileComponent implements OnInit {
     } else {
       temp.lastName = this.u.lastName;
     }
+    temp.favorites = this.u.favorites;
 
     // maybe also check regex email on client side?
     if (this.uEmail.trim() !== '') { 
@@ -92,6 +93,11 @@ export class ProfileComponent implements OnInit {
       temp.password = this.u.password;
     }
 
+
+    // add favorites - temporary. openbreweryDB is down
+    temp.favorites = [];
+    temp.favorites.push(1);
+    temp.favorites.push(10);
     console.log(temp);
     // if pass changed, use patch
     // otherwise, put
@@ -103,6 +109,7 @@ export class ProfileComponent implements OnInit {
         withCredentials: true
       }).toPromise();
     } else {
+      console.log(JSON.stringify(temp));
       resp = await this.http.post(environment.API_URL + '/user/', JSON.parse(JSON.stringify(temp)), {
         withCredentials: true
       }).toPromise();
@@ -114,7 +121,7 @@ export class ProfileComponent implements OnInit {
     if ((await resp) != null) {
       this.u = resp;
       console.log("Returned object: " + resp);
-      sessionStorage.setItem("currentUser", resp);
+      sessionStorage.setItem("currentUser", JSON.stringify(resp));
       alert('Successfully Updated Profile Information!');
     } else {
       // user obj in field and in session storage only changes on success
