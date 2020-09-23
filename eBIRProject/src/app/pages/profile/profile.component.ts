@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
     // favorites is already a field in user, this isn't really necessary I don't think?
     // this.u.favorites = await this.us.getFavoritesList(this.u.username);
 
-    console.log(this.u.favorites[0]);
+    // console.log(this.u.favorites[0]);
     this.u.favorites.forEach(async f => {
       this.favoriteBreweryList.push(await this.bs.getSingleBrewery(f));
     });

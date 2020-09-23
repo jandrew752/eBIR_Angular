@@ -25,18 +25,18 @@ export class UserService {
     return this.currentUser;
   }
 
-// Placeholder services until further updates
+  // Placeholder services until further updates
 
   public async register(u: User): Promise<boolean> {
     try {
       console.log(u);
       const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/register', {
-        username : u.username,
-        password : u.password,
-        firstName : u.firstName,
-        lastName : u.lastName,
-        email : u.email,
-        favorites : []
+        username: u.username,
+        password: u.password,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        email: u.email,
+        favorites: []
       }, {
         withCredentials: true
       }).toPromise();
@@ -48,41 +48,41 @@ export class UserService {
       console.log(error);
       return false;
     }
-}
+  }
 
   public async login(u: string, p: string): Promise<boolean> {
     try {
-        const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
+      const user: Promise<User> = this.http.post<User>(environment.API_URL + '/user/login', {
         username: u,
         password: p
       }, {
         withCredentials: true
       }).toPromise();
-        if (user != null) {
-          this.setUser(await user);
-          console.log(this.getUser);
-          console.log(user);
-          sessionStorage.setItem('currentUser', JSON.stringify(user));
-          return true;
-        } else {
-          return false;
-        }
+      if (user != null) {
+        this.setUser(await user);
+        console.log(this.getUser);
+        console.log(user);
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-/*  public async logout(): Promise<void> {
-    const response: Promise<void> = this.http.get<void>(environment.API_URL + '/logout',
-    {
-      withCredentials: true
-    }).toPromise();
-
-    sessionStorage.clear();
-
-    return response;
-  }
-*/
+  /*  public async logout(): Promise<void> {
+      const response: Promise<void> = this.http.get<void>(environment.API_URL + '/logout',
+      {
+        withCredentials: true
+      }).toPromise();
+  
+      sessionStorage.clear();
+  
+      return response;
+    }
+  */
 
   public async checkAuthorization(): Promise<boolean> {
     try {
@@ -103,7 +103,7 @@ export class UserService {
     try {
       return await this.http.get<number[]>(
         environment.API_URL + '/user/' + username + '/favorites'
-        ).toPromise();
+      ).toPromise();
     } catch (error) {
       console.log(error);
       return null;
@@ -126,7 +126,7 @@ export class UserService {
     try {
       await this.http.delete(
         environment.API_URL + '/user/:' + username + '/:' + id
-        ).toPromise();
+      ).toPromise();
     } catch (error) {
       console.log(error);
     }
@@ -137,12 +137,12 @@ export class UserService {
       console.log(u);
       const user: User = await this.http.put<User>(
         environment.API_URL + '/user/' + u.username, {
-          username : u.username,
-          password : u.password,
-          firstName : u.firstName,
-          lastName : u.lastName,
-          email : u.email
-        }
+        username: u.username,
+        password: u.password,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        email: u.email
+      }
       ).toPromise();
 
       this.setUser(user);
@@ -158,26 +158,39 @@ export class UserService {
   public async updateUser(u: User) {
     // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
     let temp = JSON.stringify(u);
-    
+
     return this.http.put(environment.API_URL + '/user/', JSON.parse(temp), {
       withCredentials: true
     });
   }
 
   public async updateUserPass(u: User) {
-     // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
-     let temp = JSON.stringify(u);
-    
-    return this.http.patch(environment.API_URL + '/user/', 
+    // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
+    let temp = JSON.stringify(u);
+
+    return this.http.patch(environment.API_URL + '/user/',
       JSON.parse(temp), {
       withCredentials: true
     });
   }
 
   public initNull(u: User): User {
-    if (u.favorites == null) {
-        u.favorites = [];
-    }
+    // do all fields
+    // I think only favorites actually matters, but just in case:
+    Object.keys(u).forEach(field => {
+      console.log(field);
+
+      if (u[field] == null) {
+        // if not favorites, it's string
+        if (field != "favorites") {
+          u[field] = "";
+        } else { // if favorites, it's empty array
+          u[field] = [];
+        }
+      }
+
+    })
+    console.log(u);
     return u;
-}
+  }
 }
