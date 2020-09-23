@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProfileComponent implements OnInit {
 
-  u: User = JSON.parse(sessionStorage.getItem('currentUser'));
+  u: User;
   closeResult = '';
   uFirstname = '';
   uLastname = '';
@@ -30,17 +30,23 @@ export class ProfileComponent implements OnInit {
     //   this.router.navigateByUrl('/login');
     //   alert('Please login');
     // }
-    this.favoritesList();
+
+    // this.favoritesList();
+    this.u = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.us.initNull(this.u);
+    console.log("u.favorites: " + typeof(this.u.favorites));
+
   }
 
-  async favoritesList(): Promise<void> {
-    this.u.favorites = await this.us.getFavoritesList(this.u.username);
+  // favorites is already a field in user, this isn't really necessary I don't think?
+  // async favoritesList(): Promise<void> {
+  //   this.u.favorites = await this.us.getFavoritesList(this.u.username);
 
-    this.u.favorites.forEach(async f => {
-      this.favoriteBreweryList.push(await this.bs.getSingleBrewery(f));
-    });
-      // this.u.favorites = new Set();
-  }
+  //   this.u.favorites.forEach(async f => {
+  //     this.favoriteBreweryList.push(await this.bs.getSingleBrewery(f));
+  //   });
+  //     // this.u.favorites = new Set();
+  // }
 
   async removeFavorite(id: number): Promise<void> {
       await this.us.removeFavorite(this.u.username, id);
@@ -76,7 +82,12 @@ export class ProfileComponent implements OnInit {
     } else {
       temp.lastName = this.u.lastName;
     }
+
+    this.us.initNull(temp);
     temp.favorites = this.u.favorites;
+    // Spring maps empty arrays to null/no entries in DB, so we need to check if favorites was null
+    // and reinit later it is
+    let noFavorites:boolean = (temp.favorites.length < 1);
 
     // maybe also check regex email on client side?
     if (this.uEmail.trim() !== '') { 
@@ -92,15 +103,17 @@ export class ProfileComponent implements OnInit {
     } else {
       temp.password = this.u.password;
     }
-
+    
 
     // add favorites - temporary. openbreweryDB is down
-    temp.favorites = [];
-    temp.favorites.push(1);
-    temp.favorites.push(10);
-    console.log(temp);
-    // if pass changed, use patch
-    // otherwise, put
+    // temp.favorites = [];
+    // temp.favorites.push(1);
+    // temp.favorites.push(10);
+    // console.log(temp);
+
+
+    // if pass changed, use put
+    // otherwise, post
     let resp;
     if (changedPass) {
       // for some reason, favorites array doesnt parse properly if I don't do obj > str > obj
@@ -119,9 +132,11 @@ export class ProfileComponent implements OnInit {
     console.log(typeof(resp))
     // check if resp is valid user object - server sends null if it failed
     if ((await resp) != null) {
+      resp = this.us.initNull(<User>resp);
       this.u = resp;
+
       console.log("Returned object: " + resp);
-      sessionStorage.setItem("currentUser", JSON.stringify(resp));
+      sessionStorage.setItem("currentUser", JSON.stringify(this.u));
       alert('Successfully Updated Profile Information!');
     } else {
       // user obj in field and in session storage only changes on success

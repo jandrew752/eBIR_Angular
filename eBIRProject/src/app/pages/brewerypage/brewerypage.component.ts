@@ -144,10 +144,9 @@ export class BrewerypageComponent implements OnInit {
 
     console.log(review);
 
-    this.hasSubmittedReview = true; // move after HTTP req once backend is ready
       // send put req
     this.bs.submitReview(review);
-      // this.hasSubmittedReview = true;
+    this.hasSubmittedReview = true; 
   }
 
   async toggleFavorites() {
@@ -173,6 +172,7 @@ export class BrewerypageComponent implements OnInit {
 
     // update session storage
     u = await response;
+    u.initFavIfNull();
     sessionStorage.setItem("currentUser", JSON.stringify(u));
 
   }
