@@ -97,9 +97,13 @@ export class ProfileComponent implements OnInit {
     // otherwise, put
     let resp;
     if (changedPass) {
-      resp = await this.us.updateUserPass(temp);
+      // for some reason, favorites array doesnt parse properly if I don't do obj > str > obj
+      // ¯\_(ツ)_/¯
+      resp = await this.http.put(environment.API_URL + '/user/', JSON.parse(JSON.stringify(temp)), {
+        withCredentials: true
+      }).toPromise();
     } else {
-      resp = await this.http.put(environment.API_URL + '/user/', temp, {
+      resp = await this.http.post(environment.API_URL + '/user/', JSON.parse(JSON.stringify(temp)), {
         withCredentials: true
       }).toPromise();
     }
