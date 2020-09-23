@@ -73,7 +73,6 @@ export class BrewerypageComponent implements OnInit {
       }
     }
 
-
     console.log(this.reviews);
 
     // check if this brewery is already a favorite or if user already has a review

@@ -214,7 +214,7 @@ export class BreweryService {
   }
 
   async submitReview(r: Review) {
-    return await this.http.put(environment.API_URL + '/review', JSON.stringify(r)).toPromise();
+    return await this.http.put<Review>(environment.API_URL + '/review', JSON.stringify(r)).toPromise();
   }
 
 }

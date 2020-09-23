@@ -34,24 +34,36 @@ export class ProfileComponent implements OnInit {
     // this.favoritesList();
     this.u = JSON.parse(sessionStorage.getItem('currentUser'));
     this.us.initNull(this.u);
-    console.log("u.favorites: " + typeof(this.u.favorites));
-
+    this.favoritesList();
   }
 
-  // favorites is already a field in user, this isn't really necessary I don't think?
-  // async favoritesList(): Promise<void> {
-  //   this.u.favorites = await this.us.getFavoritesList(this.u.username);
+  async favoritesList(): Promise<void> {
+    // favorites is already a field in user, this isn't really necessary I don't think?
+    // this.u.favorites = await this.us.getFavoritesList(this.u.username);
 
-  //   this.u.favorites.forEach(async f => {
-  //     this.favoriteBreweryList.push(await this.bs.getSingleBrewery(f));
-  //   });
-  //     // this.u.favorites = new Set();
-  // }
+    console.log(this.u.favorites[0]);
+    this.u.favorites.forEach(async f => {
+      this.favoriteBreweryList.push(await this.bs.getSingleBrewery(f));
+    });
+      // this.u.favorites = new Set();
+  }
 
   async removeFavorite(id: number): Promise<void> {
-      await this.us.removeFavorite(this.u.username, id);
-      alert('Successfully deleted brewery from Favorites list');
-      location.reload();
+    this.u.favorites = this.u.favorites.filter(element => element != id);
+    console.log(this.u.favorites);
+
+    let temp = (await this.us.updateUser(this.u)).toPromise();
+
+    let tempUser = <User> await temp;
+    console.log(tempUser);
+    if (tempUser != null) { // success
+      alert('Successfully deleted brewery from favorites list');
+      this.u = tempUser;
+      sessionStorage.setItem("currentUser", JSON.stringify(tempUser));
+    } else { // problem
+      alert('Problem deleting brewery from favorites list')
+    }
+    location.reload();
   }
 
   goBack(): void {
