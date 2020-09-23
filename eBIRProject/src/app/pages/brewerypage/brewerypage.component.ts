@@ -149,7 +149,7 @@ export class BrewerypageComponent implements OnInit {
   }
 
   async toggleFavorites() {
-    let u: User = JSON.parse(sessionStorage.getItem("currentUser"));
+    let u = JSON.parse(sessionStorage.getItem("currentUser"));
 
 
     if (this.isFavorite) { // remove if already fav
@@ -167,11 +167,13 @@ export class BrewerypageComponent implements OnInit {
     // toggle favorite boolean
     this.isFavorite = !this.isFavorite; // move this after HTTP req once backend is ready
     // update backend with new value
-    console.log("updateUser on: " + u);
-    console.log(JSON.stringify(u));
-    let userResponse:User;
-    let response = (await this.us.updateUser(u)).subscribe(resp => userResponse = <User>resp);
-    console.log(userResponse);
+    // console.log("updateUser on: " + u);
+    // console.log(JSON.stringify(u));
+
+    let response = (await this.us.updateUser(u)).toPromise();
+    u = await response;
+    sessionStorage.setItem("currentUser", JSON.stringify(u));
+
   }
 
 }
