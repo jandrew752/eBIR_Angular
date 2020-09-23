@@ -209,8 +209,8 @@ export class BreweryService {
     return b;
   }
 
-  async getReviews(b: Brewery) {
-    return this.http.get(environment.API_URL + '/brewery/' + b.id + '/reviews');
+  async getReviews(b: Brewery): Promise<Review[]> {
+    return this.http.get<Review[]>(environment.API_URL + '/brewery/' + b.id + '/reviews').toPromise();
   }
 
   async submitReview(r: Review) {
