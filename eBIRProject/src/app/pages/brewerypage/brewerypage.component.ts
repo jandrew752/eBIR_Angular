@@ -17,8 +17,8 @@ import { FormBuilder } from '@angular/forms';
 })
 export class BrewerypageComponent implements OnInit {
   private id: string;
-  public brewery: Brewery;
-  public reviews: Review[];
+  public brewery: Brewery = new Brewery(); // init so the HTML fields aren't trying to get a field from undefined on page startup
+  public reviews: Review[] = [];
   private clickCounter = 0;
   public reviewText = '';
   public footerVisible = true;
@@ -65,6 +65,8 @@ export class BrewerypageComponent implements OnInit {
     obs.subscribe(r => {
       this.reviews.push(r as Review);
     });
+
+    console.log(this.reviews);
 
     // check if this brewery is already a favorite or if user already has a review
     const user: User = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -142,14 +144,13 @@ export class BrewerypageComponent implements OnInit {
 
     console.log(review);
 
-    this.hasSubmittedReview = true; // move after HTTP req once backend is ready
       // send put req
     this.bs.submitReview(review);
-      // this.hasSubmittedReview = true;
+    this.hasSubmittedReview = true; 
   }
 
   async toggleFavorites() {
-    let u: User = JSON.parse(sessionStorage.getItem("currentUser"));
+    let u = JSON.parse(sessionStorage.getItem("currentUser"));
 
 
     if (this.isFavorite) { // remove if already fav
@@ -167,11 +168,13 @@ export class BrewerypageComponent implements OnInit {
     // toggle favorite boolean
     this.isFavorite = !this.isFavorite; // move this after HTTP req once backend is ready
     // update backend with new value
-    console.log("updateUser on: " + u);
-    console.log(JSON.stringify(u));
-    let userResponse:User;
-    let response = (await this.us.updateUser(u)).subscribe(resp => userResponse = <User>resp);
-    console.log(userResponse);
+    let response = (await this.us.updateUser(u)).toPromise();
+
+    // update session storage
+    u = await response;
+    u.initFavIfNull();
+    sessionStorage.setItem("currentUser", JSON.stringify(u));
+
   }
 
 }

@@ -172,4 +172,11 @@ export class UserService {
       withCredentials: true
     });
   }
+
+  public initNull(u: User): User {
+    if (u.favorites == null) {
+        u.favorites = [];
+    }
+    return u;
+}
 }
