@@ -5,6 +5,7 @@ import { Brewery } from 'src/app/models/brewery';
 import { User } from 'src/app/models/user';
 import { BreweryService } from 'src/app/services/brewery.service';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -52,18 +53,70 @@ export class ProfileComponent implements OnInit {
   }
 
   async update(): Promise<void> {
-    if (this.uFirstname.trim() !== '') { this.u.firstName = this.uFirstname; }
-    if (this.uLastname.trim() !== '') { this.u.lastName = this.uLastname; }
-    if (this.uPassword.trim() !== '') {
-      this.u.password = this.uPassword;
-    } else { this.u.password = ''; }
-    if (this.uEmail.trim() !== '') { this.u.email = this.uEmail; }
-    if (await this.us.updateProfile(this.u)) {
-      sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser()));
-      alert('Successfully Updated Profile Information!');
-      location.reload();
+    // Have to do some special stuff with password, don't want to store plaintext
+    // also the password field is actually the passhash
+    // if (this.uPassword.trim() !== '') {
+    //   this.u.password = this.uPassword;
+    // } else { this.u.password = ''; }
+
+    // might be better to update our user object/session storage based on what the server sends back
+    // esp since we need to do it anyways for pass hashing
+    // instead of using our u based on session storage, I'll use a temporary user obj
+
+    // if they don't change, we just pass the value from the currentUser
+    let temp: User = new User();
+    temp.username = this.u.username;
+    if (this.uFirstname.trim() !== '') { 
+      temp.firstName = this.uFirstname; 
     } else {
+      temp.firstName = this.u.firstName;
+    }
+    if (this.uLastname.trim() !== '') {
+       temp.lastName = this.uLastname; 
+    } else {
+      temp.lastName = this.u.lastName;
+    }
+
+    // maybe also check regex email on client side?
+    if (this.uEmail.trim() !== '') { 
+      temp.email = this.uEmail; 
+    } else {
+      temp.email = this.u.email;
+    }
+
+    let changedPass:boolean = false;
+    if (this.uPassword.trim().length > 0) {
+      temp.password = this.uPassword;
+      changedPass = true;
+    } else {
+      temp.password = this.u.password;
+    }
+
+    console.log(temp);
+    // if pass changed, use patch
+    // otherwise, put
+    let resp;
+    if (changedPass) {
+      resp = await this.us.updateUserPass(temp);
+    } else {
+      resp = await this.http.put(environment.API_URL + '/user/', temp, {
+        withCredentials: true
+      }).toPromise();
+    }
+
+    console.log(resp);
+    console.log(typeof(resp))
+    // check if resp is valid user object - server sends null if it failed
+    if ((await resp) != null) {
+      this.u = resp;
+      console.log("Returned object: " + resp);
+      sessionStorage.setItem("currentUser", resp);
+      alert('Successfully Updated Profile Information!');
+    } else {
+      // user obj in field and in session storage only changes on success
       alert('Problem updating profile!');
     }
+      // sessionStorage.setItem('currentUser', JSON.stringify(this.us.getUser()));
+      // location.reload();
   }
 }

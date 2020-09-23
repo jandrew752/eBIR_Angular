@@ -17,8 +17,8 @@ import { FormBuilder } from '@angular/forms';
 })
 export class BrewerypageComponent implements OnInit {
   private id: string;
-  public brewery: Brewery;
-  public reviews: Review[];
+  public brewery: Brewery = new Brewery(); // init so the HTML fields aren't trying to get a field from undefined on page startup
+  public reviews: Review[] = [];
   private clickCounter = 0;
   public reviewText = '';
   public footerVisible = true;
@@ -65,6 +65,8 @@ export class BrewerypageComponent implements OnInit {
     obs.subscribe(r => {
       this.reviews.push(r as Review);
     });
+
+    console.log(this.reviews);
 
     // check if this brewery is already a favorite or if user already has a review
     const user: User = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -167,10 +169,9 @@ export class BrewerypageComponent implements OnInit {
     // toggle favorite boolean
     this.isFavorite = !this.isFavorite; // move this after HTTP req once backend is ready
     // update backend with new value
-    // console.log("updateUser on: " + u);
-    // console.log(JSON.stringify(u));
-
     let response = (await this.us.updateUser(u)).toPromise();
+
+    // update session storage
     u = await response;
     sessionStorage.setItem("currentUser", JSON.stringify(u));
 
