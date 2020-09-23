@@ -159,7 +159,7 @@ export class UserService {
     // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
     let temp = JSON.stringify(u);
 
-    return this.http.put(environment.API_URL + '/user/', JSON.parse(temp), {
+    return this.http.post(environment.API_URL + '/user/', JSON.parse(temp), {
       withCredentials: true
     });
   }
@@ -168,7 +168,7 @@ export class UserService {
     // this really shouldn't be necessary, but for some reason putting u in directly doesnt work :|
     let temp = JSON.stringify(u);
 
-    return this.http.patch(environment.API_URL + '/user/',
+    return this.http.put(environment.API_URL + '/user/',
       JSON.parse(temp), {
       withCredentials: true
     });
@@ -188,7 +188,6 @@ export class UserService {
           u[field] = [];
         }
       }
-
     })
     console.log(u);
     return u;
