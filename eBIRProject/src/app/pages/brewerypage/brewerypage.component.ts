@@ -46,10 +46,10 @@ export class BrewerypageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (sessionStorage.getItem('currentUser') == null) {
-    //   this.router.navigateByUrl('/login');
-    //   alert('Please login');
-    // }
+    if (sessionStorage.getItem('currentUser') == null) {
+      this.router.navigateByUrl('/login');
+      alert('Please login');
+    }
   }
 
   onSubmit(): void {
@@ -61,10 +61,18 @@ export class BrewerypageComponent implements OnInit {
     this.brewery = this.bs.parseBreweryObject(temp);
 
     // get reviews from DB
-    const obs = await this.bs.getReviews(this.brewery);
-    obs.subscribe(r => {
+    const obs: Review[] = await this.bs.getReviews(this.brewery);
+
+    let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+
+    for (let r of obs) {
       this.reviews.push(r as Review);
-    });
+      // check if currentUser has already written a review
+      if (r.submitter.username == currentUser.username) {
+        this.hasSubmittedReview = true;
+      }
+    }
+
 
     console.log(this.reviews);
 
