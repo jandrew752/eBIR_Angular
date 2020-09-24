@@ -1,4 +1,4 @@
-<div class="wholeDiv">
+<div class="loginDiv">
       <div class='form-group'>
         <form class='form-control'>
           <h1>Welcome To eBIR!</h1>
@@ -9,9 +9,9 @@
           <label for='password'>Password:</label>
           <input [(ngModel)]='password' id='password' type='password' name='password'>
           <br/>
-          <button type='button' (click)='confirm()'>LOGIN</button>
+          <button type='button' id="btn" name="login" (click)='confirm()'>LOGIN</button>
           <br/>
-          <button type='button' (click)='toRegister()'>Register a new account</button>
+          <button type='button' id="btn" name="toRegister" (click)='toRegister()'>Register a new account</button>
         </form>
       </div>
 </div>
