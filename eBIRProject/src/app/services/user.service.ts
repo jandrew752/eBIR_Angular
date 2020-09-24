@@ -77,9 +77,9 @@ export class UserService {
       {
         withCredentials: true
       }).toPromise();
-  
+
       sessionStorage.clear();
-  
+
       return response;
     }
   */
