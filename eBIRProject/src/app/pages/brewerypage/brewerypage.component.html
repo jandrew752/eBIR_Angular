@@ -1,99 +1,102 @@
 <app-navbar></app-navbar>
-<button class="btn btn-success" *ngIf="!isFavorite" (click)="toggleFavorites()">Add to Favorite</button>
-<button class="btn btn-danger" *ngIf="isFavorite" (click)="toggleFavorites()">Remove from Favorites</button>
 
-<table class="table">
-    <tbody>
-        <tr>
-            <td> {{brewery.name}} </td>
-        </tr>
-        <tr>
-            <th>Type</th>
-            <td>{{ brewery.breweryType }}</td>
-        </tr>
-        <tr>
-            <th>Phone</th>
-            <td>{{ brewery.phone }}</td>
-        </tr>
-        <tr>
-            <th>Website</th>
-            <td><a href='{{ brewery.websiteUrl }}' >{{ brewery.websiteUrl }}</a></td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td>
-                {{ brewery.street }} <br>
-                {{ brewery.city }}, {{brewery.state}} {{brewery.postalCode}}<br>
-            </td>
-        </tr>
-        <tr>
-            <th>Last Updated</th>
-            <td>{{ brewery.updatedAt | date:'medium'}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="breweryDiv">
+  <button class="btn btn-success" *ngIf="!isFavorite" (click)="toggleFavorites()">Add to Favorite</button>
+  <button class="btn btn-danger" *ngIf="isFavorite" (click)="toggleFavorites()">Remove from Favorites</button>
 
-<div class="form-group" *ngIf="!hasSubmittedReview">
-  <form [formGroup]="ratingsForm" (ngSubmit)="onSubmit()">
-    <select formControlName="rating">
-      <option disabled>Select Rating</option>
-      <option>Select Rating</option>
-      <option *ngFor="let r of ratings">{{ r }}</option>
-    </select>
-  </form>
-    <form>
-      <textarea id="review_text" class="form-control" maxlength="1500" rows="3"
-          (click)="clearText()">Write a review!</textarea>
-      <button id="review_btn" class="btn btn-primary" (click)="reviewSubmitBtn()" data-toggle="modal"
-          data-target="#submitModal">Submit Review</button>
+  <table class="table">
+      <tbody>
+          <tr>
+              <td> {{brewery.name}} </td>
+          </tr>
+          <tr>
+              <th>Type</th>
+              <td>{{ brewery.breweryType }}</td>
+          </tr>
+          <tr>
+              <th>Phone</th>
+              <td>{{ brewery.phone }}</td>
+          </tr>
+          <tr>
+              <th>Website</th>
+              <td><a href='{{ brewery.websiteUrl }}' >{{ brewery.websiteUrl }}</a></td>
+          </tr>
+          <tr>
+              <th>Address</th>
+              <td>
+                  {{ brewery.street }} <br>
+                  {{ brewery.city }}, {{brewery.state}} {{brewery.postalCode}}<br>
+              </td>
+          </tr>
+          <tr>
+              <th>Last Updated</th>
+              <td>{{ brewery.updatedAt | date:'medium'}}</td>
+          </tr>
+      </tbody>
+  </table>
+
+  <div class="form-group" *ngIf="!hasSubmittedReview">
+    <form [formGroup]="ratingsForm" (ngSubmit)="onSubmit()">
+      <select formControlName="rating">
+        <option disabled>Select Rating</option>
+        <option>Select Rating</option>
+        <option *ngFor="let r of ratings">{{ r }}</option>
+      </select>
     </form>
-</div>
-<div *ngIf="hasSubmittedReview">
-    <form>
-        <p id="submitted_text" class="text-justify">Your review has been received. Thanks for your input!</p>
-    </form>
-</div>
+      <form>
+        <textarea id="review_text" class="form-control" maxlength="1500" rows="3"
+            (click)="clearText()">Write a review!</textarea>
+        <button id="review_btn" class="btn btn-primary" (click)="reviewSubmitBtn()" data-toggle="modal"
+            data-target="#submitModal">Submit Review</button>
+      </form>
+  </div>
+  <div *ngIf="hasSubmittedReview">
+      <form>
+          <p id="submitted_text" class="text-justify">Your review has been received. Thanks for your input!</p>
+      </form>
+  </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <table class="table table-hover">
-                <tr *ngFor="let r of this.reviews">
-                    <th>{{ r.submitter.firstName }}</th>
-                    <td>{{ r.rating }}</td>
-                    <td>{{ r.reviewText }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <table class="table table-hover">
+                  <tr *ngFor="let r of this.reviews">
+                      <th>{{ r.submitter.firstName }}</th>
+                      <td>{{ r.rating }}</td>
+                      <td>{{ r.reviewText }}</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>
 
-<!-- -------------------------------------------- MODAL ------------------------------------------------------ -->
-<!-- --------------------------------------------------------------------------------------------------------- -->
+  <!-- -------------------------------------------- MODAL ------------------------------------------------------ -->
+  <!-- --------------------------------------------------------------------------------------------------------- -->
 
-<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">{{brewery.name}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+  <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitle">{{brewery.name}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
 
-            <div id="modalBody" class="modal-body">
-              <p>{{ ratingText }}</p>
-              <p>{{ reviewText }}</p>
-            </div>
-            <div id="modalFooter" class="modal-footer" [ngStyle]="{'visibility': footerVisible ? 'visible' : 'hidden'}">
-                <button id="submitBtn_modal" type="button" class="btn btn-success" (click)="submitReview()"
-                    data-dismiss="modal">
-                    Submit
-                </button>
-                <button id="goBackBtn_modal" type="button" class="btn btn-danger" data-dismiss="modal">
-                    Go Back
-                </button>
-            </div>
-        </div>
-    </div>
+              <div id="modalBody" class="modal-body">
+                <p>{{ ratingText }}</p>
+                <p>{{ reviewText }}</p>
+              </div>
+              <div id="modalFooter" class="modal-footer" [ngStyle]="{'visibility': footerVisible ? 'visible' : 'hidden'}">
+                  <button id="submitBtn_modal" type="button" class="btn btn-success" (click)="submitReview()"
+                      data-dismiss="modal">
+                      Submit
+                  </button>
+                  <button id="goBackBtn_modal" type="button" class="btn btn-danger" data-dismiss="modal">
+                      Go Back
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
