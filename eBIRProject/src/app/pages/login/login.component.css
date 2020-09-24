@@ -1,0 +1,11 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.btn {
+    background-color: #ffd663;
+    border: 2px;
+    border-color: whitesmoke;
+}
+input {
+    background-color: #ffd663;
+}
+

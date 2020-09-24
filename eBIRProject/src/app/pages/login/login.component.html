@@ -9,9 +9,11 @@
           <label for='password'>Password:</label>
           <input [(ngModel)]='password' id='password' type='password' name='password'>
           <br/>
-          <button type='button' (click)='confirm()'>LOGIN</button>
           <br/>
-          <button type='button' (click)='toRegister()'>Register a new account</button>
+          <button type='button' class='btn btn-default' (click)='confirm()'>LOGIN</button>
+          <br>
+          <br/>
+          <button type='button' class='btn btn-default' (click)='toRegister()'>Register a new account</button>
         </form>
       </div>
 </div>
