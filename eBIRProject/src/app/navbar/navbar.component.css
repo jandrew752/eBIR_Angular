@@ -9,4 +9,7 @@
   height: auto;
   overflow: auto;
   box-shadow: 10px 5px 5px #dba004;
+  border-style: solid;
+  border-color: white;
+  border-radius: 5px;
 } 
