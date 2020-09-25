@@ -16,3 +16,16 @@ tr:nth-child(even) {
 .jumbotron {
   padding: 10em inherit;
 }
+.btn {
+  background-color: #ffd663;
+  border-width: 3px;
+  border-style: solid;
+  border-color: white;
+}
+input {
+  background-color: #ffd663;
+  border-radius: 5px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: white;
+}
