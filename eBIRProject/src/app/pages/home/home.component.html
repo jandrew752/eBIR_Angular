@@ -8,23 +8,23 @@
         <br/>
         <br/>
         <label for='inputName'>Search By Name: </label>
-        <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName'>
+        <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName' placeholder='Search By Name'>
         <button type='button' id="search" name="name" class='btn' (click)='nameSearch()'>SEARCH</button>
         <br/>
         <label for='inputState'>Search By State: </label>
-        <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState'>
+        <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState' placeholder='Search By State'>
         <button type='button' id="search" name="state" class='btn' (click)='stateSearch()'>SEARCH</button>
         <br/>
         <label for='inputZipcode'>Search By Zipcode: </label>
-        <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode'>
+        <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode' placeholder='Search By Zipcode'>
         <button type='button' id="search" name="zipcode" class='btn' (click)='zipcodeSearch()'>SEARCH</button>
       </div>
 
-      <div id="breweryDiv" class="col my-auto text-right">
+      <div id="breweryDiv" class="col my-auto text-center">
         <table width="100%">
           <h2>Breweries</h2>
           <label for="search">Search Results By Name: </label>
-          <input type="text" name="search" [(ngModel)]='search'>
+          <input type="text" name="search" [(ngModel)]='search' placeholder='Search Results By Name'>
           <tr>
             <th>Brewery Name</th>
             <th>Brewery Info</th>
