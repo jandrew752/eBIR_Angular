@@ -5,10 +5,10 @@
     <div class="row">
       <div id="userInfoDiv" class="col my-auto text-left">
         <label for='fullname'>Name:</label>
-        <span> {{ u.firstName }} {{ u.lastName }}</span>
+        <span id ='fullname'> {{ u.firstName }} {{ u.lastName }}</span>
         <br/>
         <label for='email'>Email:</label>
-        <span> {{ u.email }}</span>
+        <span id="email"> {{ u.email }}</span>
         <br/>
         <button type="button" data-toggle="modal" data-target="#myModal" id="button" name="update" class='btn'>UPDATE PROFILE</button>
       </div>
@@ -22,9 +22,9 @@
             <th>Remove Favorites</th>
           </tr>
           <tr *ngFor="let fBrewery of favoriteBreweryList">
-            <td>{{ fBrewery.name }}</td>
-            <td>{{ fBrewery.rating }}</td>
-            <td><button type='button' class="fBrewery" id=fBrewery.id (click)='removeFavorite(fBrewery.id)'>Remove</button></td>
+            <td id="breweryName">{{ fBrewery.name }}</td>
+            <td id="breweryRating">{{ fBrewery.rating }}</td>
+            <td><button type='button' class="fBrewery" id="fBrewery.id" (click)='removeFavorite(fBrewery.id)'>Remove</button></td>
           </tr>
         </table>
       </div>
@@ -67,7 +67,7 @@
         <div class="modal-footer">
           <button type="button"
               class="btn btn-outline-dark"
-              id='updateProfileBtn'
+              id='updatBtn'
               (click)="update()">
               Update
           </button>
