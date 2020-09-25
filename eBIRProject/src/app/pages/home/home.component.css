@@ -31,6 +31,7 @@ input {
 }
 .homeDiv {
   background-color: rgba(255, 249, 232, .5);
-  height: 28em;
+  height: auto;
+  overflow: auto;
   box-shadow: 10px 5px 5px #dba004;
 }
