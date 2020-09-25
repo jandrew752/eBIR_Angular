@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Brewery } from 'src/app/models/brewery';
 import { BreweryService } from 'src/app/services/brewery.service';
 import { User } from 'src/app/models/user';
+import { MapsService } from 'src/app/services/maps.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +34,8 @@ export class HomeComponent implements OnInit {
   postalCode = '';
   websiteUrl = '';
 
-  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) { }
+  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient,
+    private ms: MapsService) {}
 
   ngOnInit(): void {
     // if (sessionStorage.getItem('currentUser') == null) {
@@ -42,6 +45,7 @@ export class HomeComponent implements OnInit {
     this.breweryList = [];
     this.bs.breweryList = [];
     this.toList();
+    this.generateMap();
   }
 
   toBreweryPage(): void {
@@ -128,5 +132,16 @@ export class HomeComponent implements OnInit {
         this.websiteUrl = b.websiteUrl;
       }
     });
+  }
+
+  async generateMap() {
+    let mapElement: HTMLElement = document.getElementById("searchMap") as HTMLElement;
+    
+    // 2d array, each brewLocations[i] corresponds to ith brewery object
+    // should contain an array [lat long]
+    let brewLocations: object[] = [];
+
+
+    this.ms.getLatLong();
   }
 }
