@@ -9,15 +9,15 @@
         <br/>
         <label for='inputName'>Search By Name: </label>
         <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName'>
-        <button type='button' (click)='nameSearch()'>SEARCH</button>
+        <button type='button' id="search" name="name" (click)='nameSearch()'>SEARCH</button>
         <br/>
         <label for='inputState'>Search By State: </label>
         <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState'>
-        <button type='button' (click)='stateSearch()'>SEARCH</button>
+        <button type='button' id="search" name="state" (click)='stateSearch()'>SEARCH</button>
         <br/>
         <label for='inputZipcode'>Search By Zipcode: </label>
         <input [(ngModel)]='inputZipcode' id='inputZipcode' type='text' name='inputZipcode'>
-        <button type='button' (click)='zipcodeSearch()'>SEARCH</button>
+        <button type='button' id="search" name="zipcode" (click)='zipcodeSearch()'>SEARCH</button>
       </div>
 
       <div id="breweryDiv" class="col my-auto text-right">
@@ -62,7 +62,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" data-dismiss='modal' (click)='toBreweryPage()'>View Page</button>
+          <button type="button" data-dismiss='modal' id="btn" name="toBrewery" (click)='toBreweryPage()'>View Page</button>
         </div>
 
       </div>
