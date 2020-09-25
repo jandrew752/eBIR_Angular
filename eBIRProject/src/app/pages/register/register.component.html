@@ -3,25 +3,31 @@
     <form class='form-control'>
       <h1>Registration</h1>
       <label for='username'>Username:</label>
-      <input [(ngModel)]='username' id='username' type='text' name='username'>
+      <input [(ngModel)]='username' id='username' type='text' name='username' placeholder='Enter Username'>
       <br/>
+      <br>
       <label for='password'>Password:</label>
-      <input [(ngModel)]='password' id='password' type='password' name='password'>
+      <input [(ngModel)]='password' id='password' type='password' name='password' placeholder='Enter Password'>
       <br/>
+      <br>
       <label for='confirmpassword'>Re-Enter Password:</label>
-      <input [(ngModel)]='confirmpassword' id='confirmpassword' type='password' name='confirmpassword'>
+      <input [(ngModel)]='confirmpassword' id='confirmpassword' type='password' name='confirmpassword' placeholder='Confirm Password'>
       <br/>
+      <br>
       <label for='firstname'>Please Enter First Name:</label>
-      <input [(ngModel)]='firstname' id='firstname' type='text' name='firstname'>
+      <input [(ngModel)]='firstname' id='firstname' type='text' name='firstname' placeholder='Enter First Name'>
       <br/>
+      <br>
       <label for='lastname'>Please Enter Last Name:</label>
-      <input [(ngModel)]='lastname' id='lastname' type='text' name='lastname'>
+      <input [(ngModel)]='lastname' id='lastname' type='text' name='lastname' placeholder='Enter Last Name'>
       <br/>
+      <br>
       <label for='email'>Please Enter Email Address:</label>
-      <input [(ngModel)]='email' id='email' type='text' name='email'>
+      <input [(ngModel)]='email' id='email' type='text' name='email' placeholder='Enter Email'>
       <br/>
-      <button type='submit' id="register" name="register" (click)='register()'>Register</button>
-      <button type='button' id="goBack" name="back" (click)='goBack()'>Back to Login</button>
+      <br>
+      <button type='submit' id="register" name="register" class='btn' (click)='register()'>Register</button>
+      <button type='button' id="goBack" name="back" class='btn' (click)='goBack()'>Back to Login</button>
     </form>
   </div>
 </div>

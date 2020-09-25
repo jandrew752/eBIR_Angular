@@ -35,6 +35,14 @@
       </tbody>
   </table>
 
+<iframe
+  id="gmap"
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  [src]="address | mapFilter" allowfullscreen>
+</iframe>
+
   <div class="form-group" *ngIf="!hasSubmittedReview">
     <form [formGroup]="ratingsForm" (ngSubmit)="onSubmit()">
       <select formControlName="rating">

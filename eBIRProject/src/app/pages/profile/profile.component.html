@@ -10,7 +10,7 @@
         <label for='email'>Email:</label>
         <span> {{ u.email }}</span>
         <br/>
-        <button type="button" data-toggle="modal" data-target="#myModal" id="button" name="update">UPDATE PROFILE</button>
+        <button type="button" data-toggle="modal" data-target="#myModal" id="button" name="update" class='btn'>UPDATE PROFILE</button>
       </div>
 
       <div id="favoriteDiv" class="col my-auto text-right">
@@ -67,6 +67,7 @@
         <div class="modal-footer">
           <button type="button"
               class="btn btn-outline-dark"
+              id='updateProfileBtn'
               (click)="update()">
               Update
           </button>

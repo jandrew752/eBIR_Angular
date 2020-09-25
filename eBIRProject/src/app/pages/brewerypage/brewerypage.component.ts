@@ -31,6 +31,7 @@ export class BrewerypageComponent implements OnInit {
   ratingsForm = this.fb.group({
     rating: []
   });
+  public address: string = "";
 
   constructor(public fb: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute,
               private bs: BreweryService, private us: UserService) {
@@ -88,6 +89,10 @@ export class BrewerypageComponent implements OnInit {
         break;
       }
     }
+
+    // populate map
+    this.address = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCWPS2gQyPHfuIps7MxjDT6rY7wNM3BOpQ&q="
+          + this.brewery.street.split(' ').join('+') + "+" + this.brewery.city + "+" + this.brewery.state + "+" + this.brewery.postalCode;
  }
 
   clearText() {
@@ -144,7 +149,7 @@ export class BrewerypageComponent implements OnInit {
       // create review object
     const review: Review = {
         submitter : user,
-        brewery : this.brewery,
+        brewery : this.brewery.id,
         rating: this.rating, // CHECK
         reviewText : this.reviewText
       };

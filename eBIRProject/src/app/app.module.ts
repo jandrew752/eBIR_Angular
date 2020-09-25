@@ -15,6 +15,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NameFilterPipe } from './filters/name-filter.pipe';
+import { MapFilterPipe } from './filters/mapfilter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NameFilterPipe } from './filters/name-filter.pipe';
     RegisterComponent,
     ProfileComponent,
     NavbarComponent,
-    NameFilterPipe
+    NameFilterPipe,
+    MapFilterPipe
   ],
   imports: [
     BrowserModule,
