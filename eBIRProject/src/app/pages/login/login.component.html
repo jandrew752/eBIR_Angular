@@ -4,16 +4,17 @@
           <h1>Welcome To eBIR!</h1>
           <h2>Login</h2>
           <label for='username'>Username:</label>
-          <input [(ngModel)]='username' id='username' type='text' name='username'>
+          <input [(ngModel)]='username' id='username' type='text' name='username' placeholder='Username'>
+          <br/>
           <br/>
           <label for='password'>Password:</label>
-          <input [(ngModel)]='password' id='password' type='password' name='password'>
+          <input [(ngModel)]='password' id='password' type='password' name='password' placeholder='Password'>
           <br/>
           <br/>
-          <button type='button' class='btn btn-default' name="login" (click)='confirm()'>LOGIN</button>
+          <button type='button' class='btn' name="login" (click)='confirm()'>LOGIN</button>
           <br>
           <br/>
-          <button type='button' class='btn btn-default' name="toRegister" (click)='toRegister()'>Register a new account</button>
+          <button type='button' class='btn' name="toRegister" (click)='toRegister()'>Register a new account</button>
         </form>
       </div>
 </div>
