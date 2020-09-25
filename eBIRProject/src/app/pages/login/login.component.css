@@ -1,18 +1,18 @@
 .btn {
     background-color: #ffd663;
-    border-width: 5px;
+    border-width: 3px;
     border-style: solid;
     border-color: white;
 }
 input {
     background-color: #ffd663;
     border-radius: 5px;
-    border-width: 5px;
+    border-width: 3px;
     border-style: solid;
     border-color: white;
 }
 ::placeholder {
-    color: black;
+    color: #787877;
 }
 .form-control {
     background-color: rgba(255, 249, 232, .5);
