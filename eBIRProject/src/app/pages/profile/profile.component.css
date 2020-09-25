@@ -25,3 +25,9 @@ tr:nth-child(even) {
   box-shadow: 10px 5px 5px #dba004;
 } 
 
+.btn {
+  background-color: #ffd663;
+  border-width: 3px;
+  border-style: solid;
+  border-color: white;
+}
