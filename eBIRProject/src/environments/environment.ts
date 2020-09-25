@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: `http://localhost:8080/eBIR`
+  API_URL: `http://localhost:8006/eBIR/`
 };
 
 // test
