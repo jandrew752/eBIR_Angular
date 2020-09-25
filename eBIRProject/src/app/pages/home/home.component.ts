@@ -7,6 +7,7 @@ import { BreweryService } from 'src/app/services/brewery.service';
 import { User } from 'src/app/models/user';
 import { MapsService } from 'src/app/services/maps.service';
 import { environment } from 'src/environments/environment';
+import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-home',
@@ -45,7 +46,6 @@ export class HomeComponent implements OnInit {
     this.breweryList = [];
     this.bs.breweryList = [];
     this.toList();
-    this.generateMap();
   }
 
   toBreweryPage(): void {
@@ -134,14 +134,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  async generateMap() {
-    let mapElement: HTMLElement = document.getElementById("searchMap") as HTMLElement;
-    
-    // 2d array, each brewLocations[i] corresponds to ith brewery object
-    // should contain an array [lat long]
-    let brewLocations: object[] = [];
-
-
+  getLocation() {
     this.ms.getLatLong();
   }
+
 }

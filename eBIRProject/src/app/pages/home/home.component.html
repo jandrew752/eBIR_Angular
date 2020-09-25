@@ -19,7 +19,9 @@
         <input [(ngModel)]='inputZipcode' id='inputZipcode' type='text' name='inputZipcode'>
         <button type='button' id="search" name="zipcode" class='btn' (click)='zipcodeSearch()'>SEARCH</button>
       </div>
-      <button (click)="generateMap()">TEST</button>
+
+
+
       <div id="breweryDiv" class="col my-auto text-right">
         <table width="100%">
           <h2>Breweries</h2>
@@ -69,3 +71,8 @@
     </div>
   </div>
 </div>
+
+
+<!-- TEMPORARY, FOR TESTING -->
+<button (click)="getLocation()">TEST</button>
+<app-gmap></app-gmap>
