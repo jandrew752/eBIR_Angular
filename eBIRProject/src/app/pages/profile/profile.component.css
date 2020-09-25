@@ -31,3 +31,9 @@ tr:nth-child(even) {
   border-style: solid;
   border-color: white;
 }
+
+h2 {
+
+  text-align: center;
+
+}
