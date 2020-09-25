@@ -149,7 +149,7 @@ export class BrewerypageComponent implements OnInit {
       // create review object
     const review: Review = {
         submitter : user,
-        brewery : this.brewery,
+        brewery : this.brewery.id,
         rating: this.rating, // CHECK
         reviewText : this.reviewText
       };
