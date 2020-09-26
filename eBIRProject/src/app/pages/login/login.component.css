@@ -16,9 +16,26 @@ input {
 }
 .form-control {
     background-color: rgba(255, 249, 232, .5);
-    height: 28em;
+    height: auto;
+    overflow: auto;
     box-shadow: 10px 5px 5px #dba004;
 }
 label {
     display: none;
+}
+#welcome-title{
+    text-align: center;
+    
+}
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 75px;
+    color: teal;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+ 
 }

@@ -6,8 +6,7 @@
 <google-map id="map">
 
   <map-marker
-    *ngFor="let b of this.blist"
-    [position]="this.center"
+    [position]="this.ms.pos"
     label="name"
     title="title">
   </map-marker>

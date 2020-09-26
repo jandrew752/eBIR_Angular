@@ -1,3 +1,4 @@
+
 th, td {
   border: 1px solid black;
   text-align: center;
@@ -28,4 +29,16 @@ input {
   border-width: 3px;
   border-style: solid;
   border-color: white;
+  width: 100%;
 }
+.homeDiv {
+  background-color: rgba(255, 249, 232, .5);
+  height: auto;
+  overflow: auto;
+  box-shadow: 10px 5px 5px #dba004;
+  border-radius: 5px;
+}
+label {
+  display: none;
+}
+

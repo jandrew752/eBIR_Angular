@@ -1,0 +1,15 @@
+.btn {
+    background-color: #ffd663;
+    border-width: 3px;
+    border-style: solid;
+    border-color:white;
+  }
+ .navDiv {
+  background-color: rgba(255, 214,99, .5);
+  height: auto;
+  overflow: auto;
+  box-shadow: 10px 5px 5px #dba004;
+  border-style: solid;
+  border-color: white;
+  border-radius: 5px;
+} 

@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   state = '';
   inputState = '';
   inputName = '';
-  inputZipcode = '';
+  inputZipcode: number = null;
   postalCode = '';
   websiteUrl = '';
 
@@ -66,6 +66,8 @@ export class HomeComponent implements OnInit {
     this.inputName.split(' ').join('_');
     this.bs.insertBreweryByName(this.inputName);
     this.breweryList = this.bs.breweryList;
+    this.inputState = '';
+    this.inputZipcode = null;
   }
 
   stateSearch(): void {
@@ -73,11 +75,15 @@ export class HomeComponent implements OnInit {
     this.inputState.split(' ').join('_');
     this.bs.insertBreweryByState(this.inputState);
     this.breweryList = this.bs.breweryList;
+    this.inputName = '';
+    this.inputZipcode = null;
   }
 
   zipcodeSearch(): void {
     this.bs.insertBreweryByZipcode(this.inputZipcode);
     this.breweryList = this.bs.breweryList;
+    this.inputState = '';
+    this.inputName = '';
   }
 
   add(id: number): void {
@@ -88,11 +94,11 @@ export class HomeComponent implements OnInit {
     this.favoritesList.push(b);
     }
     //this.u.favorites = this.favoritesList;
-    
+
     console.log(this.u);
     sessionStorage.setItem('currentUser', JSON.stringify(this.u));
     alert('Successfully Added to Favorites!');
-    
+
   }
 
   // since breweries in backend are just int[], we have to populate brewery[] on front end with public API
