@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GoogleMapsModule, GoogleMap } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
-import { MapsService } from 'src/app/services/maps.service';
+import { BreweryService } from 'src/app/services/brewery.service';
+import { Brewery } from 'src/app/models/brewery';
+
 
 @Component({
   selector: 'app-gmap',
@@ -9,29 +11,51 @@ import { MapsService } from 'src/app/services/maps.service';
   styleUrls: ['./gmap.component.css']
 })
 export class GmapComponent implements OnInit {
-  zoom = 8;
+  zoom = 14;
   center: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions
+  options: google.maps.MapOptions;
+  blist: Brewery[] = [];
+  @ViewChild(GoogleMap, {static: false}) map: GoogleMap;
+  
 
-  constructor(private ms: MapsService) { }
+  constructor(private bs: BreweryService) { }
 
   ngOnInit(): void {
-    console.log("calling initMap");
-
-    this.center = {
-      lat: this.ms.myLat,
-      lng: this.ms.myLong
-    }
-
-    let markers: object[] = this.ms.getMarkers();
+    this.blist = this.bs.breweryList;
   }
 
-  loadGM() {
-    let script = document.createElement('script');
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCWPS2gQyPHfuIps7MxjDT6rY7wNM3BOpQ&callback=initMap";
-    script.defer = true;
+  initMap() {
+    console.log("invoked initMap");
+    this.getLatLong();
 
-    document.head.appendChild(script);
+
+
+    console.log(this.center);
+
+    this.map.panTo(this.center);
+
+  }
+
+  async getLatLong() {
+    let ret: google.maps.LatLngLiteral;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: Position) => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        }
+      );
+    } else {
+      // location turned off
+      // use search term to center map
+    }
+    return ret;
+  }
+
+  getMarkers() {
+    
   }
 
 }

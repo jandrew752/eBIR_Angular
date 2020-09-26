@@ -1,7 +1,15 @@
-<!-- FOR GOOGLE JS MAPS API
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWPS2gQyPHfuIps7MxjDT6rY7wNM3BOpQ&callback=initMap"></script>
--->
 
-<google-map></google-map>
+<button (click)="initMap()">TEST</button>
+<google-map id="map">
+
+  <map-marker
+    *ngFor="let b of this.blist"
+    [position]="this.center"
+    label="name"
+    title="title">
+  </map-marker>
+
+</google-map>
