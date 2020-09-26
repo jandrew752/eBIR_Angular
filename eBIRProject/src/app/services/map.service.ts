@@ -28,7 +28,7 @@ export class MapService {
           console.log(this.pos);
           this.map.panTo(this.pos);
           
-          this.map.zoom = 12;
+          this.map.zoom = 9;
         }
       );
     } else {

@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   favoritesList: Brewery[] = [];
   breweryList: Brewery[] = [];
   editedList: Brewery[] = [];
-  search = '';
   id: number = null;
   zipcode: number;
   name = '';
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit {
   state = '';
   inputState = '';
   inputName = '';
-  inputZipcode: number = null;
+  inputZipcode: number;
   postalCode = '';
   websiteUrl = '';
 
@@ -42,9 +41,8 @@ export class HomeComponent implements OnInit {
     //   this.router.navigateByUrl('/login');
     //   alert('Please login');
     // }
-    this.breweryList = [];
-    this.bs.breweryList = [];
-    this.toList();
+    // this.bs.setQuery(this.inputState, this.inputZipcode, this.inputName);
+    this.updateBList();
   }
 
   toBreweryPage(): void {
@@ -57,11 +55,18 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/profile');
   }
 
-  toList(): void {
-    this.bs.insertBrewery();
-    this.breweryList = this.bs.breweryList;
+  async updateBList() {
+    this.bs.setQuery(this.inputState, this.inputZipcode, this.inputName);
+    this.breweryList = await this.bs.getBrewery();
+    console.log(this.breweryList);
   }
 
+  // toList(): void {
+  //   this.bs.insertBrewery();
+  //   this.breweryList = this.bs.breweryList;
+  // }
+
+  /*
   nameSearch(): void {
     this.inputName = this.inputName.toLowerCase();
     this.inputName.split(' ').join('_');
@@ -87,6 +92,7 @@ export class HomeComponent implements OnInit {
     this.inputState = '';
     this.inputName = '';
   }
+  */
 
   add(id: number): void {
     const b = this.favoriteSelect(id);

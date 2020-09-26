@@ -9,15 +9,14 @@
         <br/>
         <label for='inputName'>Search By Name: </label>
         <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName' placeholder='Search By Name'>
-        <button type='button' id="search" name="name" class='btn' (click)='nameSearch()'>SEARCH</button>
         <br/>
         <label for='inputState'>Search By State: </label>
         <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState' placeholder='Search By State'>
-        <button type='button' id="search" name="state" class='btn' (click)='stateSearch()'>SEARCH</button>
         <br/>
         <label for='inputZipcode'>Search By Zipcode: </label>
         <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode' placeholder='Search By Zipcode'>
-        <button type='button' id="search" name="zipcode" class='btn' (click)='zipcodeSearch()'>SEARCH</button>
+        <button type='button' id="searchBtn" name="zipcode" class='btn' (click)='updateBList()'>SEARCH</button>
+        <app-gmap></app-gmap>
       </div>
 
       <div id="breweryDiv" class="col my-auto text-center">
@@ -72,4 +71,3 @@
 
 
 <!-- TEMPORARY, FOR TESTING -->
-<app-gmap></app-gmap>

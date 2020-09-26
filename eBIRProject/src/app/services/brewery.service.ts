@@ -13,6 +13,8 @@ export class BreweryService {
 
   breweryList: Brewery[] = [];
   abbreviatedState = '';
+  page: number = 1;
+  query: string = '';
 
   stateDictionary: { [index: string]: string} = {};
 
@@ -73,6 +75,16 @@ export class BreweryService {
     this.stateDictionary.wyoming = 'WY';
   }
 
+  async nextPage() {
+    this.page++;
+  }
+
+  async previousPage() {
+    this.page--;
+  }
+
+  /*
+
   async insertBrewery(): Promise<void> {
     this.breweryList = [];
     const list = await this.getBrewery(20);
@@ -116,8 +128,9 @@ export class BreweryService {
         this.breweryList.push(b);
       }
     }
-  }
+  } */
 
+  /*
   public breweryByName(name: string): Promise<any[]> {
     if (name === '') { return this.getBrewery(20); }
     try {
@@ -127,25 +140,7 @@ export class BreweryService {
     }
   }
 
-  public zipcodeByState(state: string): Promise<any> {
-    try {
-      const apiKey = 'gqIk9VeLMkMrwhvM2fjrID47hls8hzpTjCaAQ72wPAPKctYZs7C6slFAiXd1Yfp7';
-      return this.http.get<any>(
-        'https://www.zipcodeapi.com/rest/' + apiKey + '/state-zips.json/' + state).toPromise();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  public zipcodeDistance(zipcode1: string | number, zipcode2: string | number): Promise<any> {
-    try {
-      const apiKey = 'gqIk9VeLMkMrwhvM2fjrID47hls8hzpTjCaAQ72wPAPKctYZs7C6slFAiXd1Yfp7';
-      return this.http.get<any>(
-        'https://www.zipcodeapi.com/rest/<' + apiKey + '>/distance.json/' + zipcode1 + '/' + zipcode2 + '/mile').toPromise();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ 
 
   public breweryByZipcode(zipcode: string | number): Promise<any[]> {
     try {
@@ -163,9 +158,32 @@ export class BreweryService {
     }
   }
 
-  public getBrewery(id: string | number): Promise<any[]> {
+  */
+
+  public setQuery(state: string, zipcode: string | number, name: string) {
+    let stateQ: string = 'by_state=';
+    let zipcodeQ: string = 'by_postal=';
+    let nameQ: string = 'by_name=';
+    // only if values aren't null/undefined
+    // prevents things like "by_state=undefined"
+    if (state) {
+      stateQ += state;
+    }
+    if (zipcode) {
+      zipcodeQ += zipcode;
+    }
+    if (name) {
+      nameQ += name;
+    }
+
+    this.query = stateQ + '&' + nameQ + '&' + zipcodeQ;
+    console.log(this.query);
+  }
+
+  public async getBrewery(): Promise<Brewery[]> {
     try {
-      return this.http.get<any[]>('https://api.openbrewerydb.org/breweries?per_page=' + id).toPromise();
+      this.breweryList = await this.http.get<any[]>('https://api.openbrewerydb.org/breweries?per_page=20&' + this.query + '&page=' + this.page).toPromise();
+      return this.breweryList;
     } catch (error) {
       console.log(error);
     }

@@ -9,10 +9,10 @@ import { MapService } from 'src/app/services/map.service';
 @Component({
   selector: 'app-gmap',
   templateUrl: './gmap.component.html',
-  styleUrls: ['./gmap.component.css']
+  styleUrls: ['../home.component.css', './gmap.component.css']
 })
 export class GmapComponent implements OnInit {
-  zoom = 14;
+  zoom = 8;
   options: google.maps.MapOptions;
   @ViewChild(GoogleMap, {static: false}) map: GoogleMap;
   markers: google.maps.LatLng[] = [];
