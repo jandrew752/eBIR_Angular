@@ -4,9 +4,6 @@ import { Brewery } from '../models/brewery';
 import { Review } from '../models/review';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
-
-// testing
-//  {Server} from "miragejs";
 import { environment } from 'src/environments/environment';
 
 @Injectable({

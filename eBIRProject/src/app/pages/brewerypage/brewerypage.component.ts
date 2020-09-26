@@ -91,7 +91,7 @@ export class BrewerypageComponent implements OnInit {
     }
 
     // populate map
-    this.address = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCWPS2gQyPHfuIps7MxjDT6rY7wNM3BOpQ&q="
+    this.address = "https://www.google.com/maps/embed/v1/place?key=" + environment.MAP_KEY + "&q="
           + this.brewery.street.split(' ').join('+') + "+" + this.brewery.city + "+" + this.brewery.state + "+" + this.brewery.postalCode;
  }
 

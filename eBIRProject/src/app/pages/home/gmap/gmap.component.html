@@ -1,0 +1,15 @@
+<button (click)="initMap()">TEST/TEMP - REMEMBER TO REMOVE</button>
+<google-map id="map">
+
+  <map-marker id="myMarker"
+    [position]="this.ms.pos"
+    title="myPos">
+  </map-marker>
+
+  <map-marker
+    *ngFor="let m of this.markers"
+    [position]="m"
+    [icon]="this.bIcon">
+  </map-marker>
+
+</google-map>
