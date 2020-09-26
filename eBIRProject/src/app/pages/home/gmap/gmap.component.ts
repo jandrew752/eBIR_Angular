@@ -25,8 +25,9 @@ export class GmapComponent implements OnInit {
   }
 
   initMap() {
+    this.ms.setMap(this.map);
     this.markers = this.ms.getMarkers();
-    this.ms.setCenter(this.map);
+    this.ms.setCenter();
   }
 
 

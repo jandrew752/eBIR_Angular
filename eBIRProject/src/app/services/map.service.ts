@@ -13,7 +13,11 @@ export class MapService {
 
   constructor(private bs: BreweryService) { }
 
-  setCenter(m: GoogleMap) {
+  setMap(m: GoogleMap) {
+    this.map = m;
+  }
+
+  setCenter() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: Position) => {
@@ -22,9 +26,9 @@ export class MapService {
             lng: position.coords.longitude
           }
           console.log(this.pos);
-          m.panTo(this.pos);
+          this.map.panTo(this.pos);
           
-          m.zoom = 12;
+          this.map.zoom = 12;
         }
       );
     } else {
@@ -34,10 +38,9 @@ export class MapService {
 
   }
 
-  refreshMap(m: GoogleMap) {
-    this.map = m;
+  refreshMap() {
     if (!this.pos) {
-      this.setCenter(m);
+      this.setCenter();
     }
   }
 
