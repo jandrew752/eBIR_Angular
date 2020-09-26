@@ -35,15 +35,23 @@ export class MapService {
       // location turned off
       // use search term to center map
     }
-
   }
 
   getMarkers(): google.maps.LatLng[] {
     let ret: google.maps.LatLng[] = [];
     for (let b of this.bs.breweryList) {
-      ret.push(new google.maps.LatLng(b.latitude, b.longitude));
+      if (b.latitude != null && b.longitude != null) {
+        ret.push(new google.maps.LatLng(b.latitude, b.longitude));
+      }
     }
     return ret;
+  }
+
+  refreshMap() {
+    if (this.map != null) {
+      this.getMarkers();
+      this.setCenter();
+    }
   }
 
 }

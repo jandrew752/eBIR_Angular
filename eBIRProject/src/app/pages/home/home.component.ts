@@ -7,6 +7,7 @@ import { BreweryService } from 'src/app/services/brewery.service';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
   postalCode = '';
   websiteUrl = '';
 
-  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) {}
+  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, private ms: MapService) {}
 
   ngOnInit(): void {
     // if (sessionStorage.getItem('currentUser') == null) {
@@ -77,6 +78,7 @@ export class HomeComponent implements OnInit {
     this.breweryList = this.bs.breweryList;
     this.inputName = '';
     this.inputZipcode = null;
+    this.ms.setCenter();
   }
 
   zipcodeSearch(): void {

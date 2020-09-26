@@ -84,13 +84,13 @@ export class BreweryService {
 
   async insertBreweryByZipcode(zipcode: number | string): Promise<void> {
     this.breweryList = [];
-    const stateZipList = await this.zipcodeByState(this.abbreviatedState);
-    console.log(stateZipList);
     const list = await this.breweryByZipcode(zipcode);
     for (const brewery of list) {
       const b = this.parseBreweryObject(brewery);
       this.breweryList.push(b);
+      console.log(b.latitude + ", " + b.longitude);
     }
+    console.log(this.breweryList);
   }
 
   async insertBreweryByState(state: string): Promise<void> {
