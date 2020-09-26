@@ -29,6 +29,4 @@ export class GmapComponent implements OnInit {
     this.markers = this.ms.getMarkers();
     this.ms.setCenter();
   }
-
-
 }

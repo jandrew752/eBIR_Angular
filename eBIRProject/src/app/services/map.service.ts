@@ -38,12 +38,6 @@ export class MapService {
 
   }
 
-  refreshMap() {
-    if (!this.pos) {
-      this.setCenter();
-    }
-  }
-
   getMarkers(): google.maps.LatLng[] {
     let ret: google.maps.LatLng[] = [];
     for (let b of this.bs.breweryList) {
