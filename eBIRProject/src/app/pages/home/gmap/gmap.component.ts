@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GoogleMapsModule, GoogleMap } from '@angular/google-maps';
+import { GoogleMapsModule, GoogleMap, MapMarker } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BreweryService } from 'src/app/services/brewery.service';
 import { Brewery } from 'src/app/models/brewery';
@@ -15,7 +15,9 @@ export class GmapComponent implements OnInit {
   zoom = 14;
   options: google.maps.MapOptions;
   @ViewChild(GoogleMap, {static: false}) map: GoogleMap;
-  
+  markers: google.maps.LatLng[] = [];
+  bIcon: google.maps.Icon = { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"};
+
 
   constructor(public bs: BreweryService, public ms: MapService) { }
 
@@ -23,13 +25,9 @@ export class GmapComponent implements OnInit {
   }
 
   initMap() {
-    console.log("invoked initMap");
-
+    this.markers = this.ms.getMarkers();
     this.ms.setCenter(this.map);
   }
 
-  getMarkers() {
-    
-  }
 
 }

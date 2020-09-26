@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { BreweryService } from './brewery.service';
 import { Brewery } from '../models/brewery';
+import { positionElements } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class MapService {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           }
+          console.log(this.pos);
+          m.panTo(this.pos);
+          
+          m.zoom = 12;
         }
       );
     } else {
@@ -27,26 +32,21 @@ export class MapService {
       // use search term to center map
     }
 
-    m.panTo(this.pos);
-    m.zoom = 8;
   }
 
-  setMarkers() {
-
-    for (let b of this.bs.breweryList) {
-      
-    }
-
-  }
-
-  refreshMap() {
-
+  refreshMap(m: GoogleMap) {
+    this.map = m;
     if (!this.pos) {
-      this.setCenter(this.map);
+      this.setCenter(m);
     }
-
-    this.setMarkers();
-
-    this.map.panTo(this.pos);
   }
+
+  getMarkers(): google.maps.LatLng[] {
+    let ret: google.maps.LatLng[] = [];
+    for (let b of this.bs.breweryList) {
+      ret.push(new google.maps.LatLng(b.latitude, b.longitude));
+    }
+    return ret;
+  }
+
 }
