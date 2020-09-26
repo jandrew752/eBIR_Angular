@@ -77,10 +77,12 @@ export class BreweryService {
 
   async nextPage() {
     this.page++;
+    this.getBrewery;
   }
 
   async previousPage() {
     this.page--;
+    this.getBrewery;
   }
 
   /*
