@@ -21,7 +21,7 @@
         <br>
         <google-map id="map">
 
-          <map-marker id="myMarker" [position]="this.ms.pos" title="myPos">
+          <map-marker id="myMarker" [position]="this.ms.pos" [options]="myMarkerOptions">
           </map-marker>
 
           <map-marker *ngFor="let m of this.markers" [position]="m" [icon]="this.bIcon">

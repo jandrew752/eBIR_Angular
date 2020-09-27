@@ -41,8 +41,9 @@ export class HomeComponent implements OnInit {
   options: google.maps.MapOptions;
   @ViewChild(GoogleMap, {static: false}) map: GoogleMap;
   markers: google.maps.LatLng[] = [];
-  bIcon: google.maps.Icon = { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"};
-
+  myMarkerOptions: google.maps.MarkerOptions = {
+    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+  }
   constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, public ms: MapService) {}
 
   ngOnInit(): void {
