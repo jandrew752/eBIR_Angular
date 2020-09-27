@@ -18,6 +18,7 @@ export class MapService {
   }
 
   setCenter() {
+    console.log("setCenter");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: Position) => {
@@ -48,6 +49,7 @@ export class MapService {
   }
 
   refreshMap() {
+    console.log("refreshMap");
     if (this.map != null) {
       this.getMarkers();
       this.setCenter();
