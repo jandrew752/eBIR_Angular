@@ -22,11 +22,21 @@ export class GmapComponent implements OnInit {
   constructor(public bs: BreweryService, public ms: MapService) { }
 
   ngOnInit(): void {
+    this.ms.setMap(this.map, this);
+    console.log("gmap oninit")
   }
 
   initMap() {
-    this.ms.setMap(this.map);
+    this.ms.setMap(this.map, this);
     this.markers = this.ms.getMarkers();
     this.ms.setCenter();
+  }
+
+  getMap(): GoogleMap {
+    return this.map;
+  }
+
+  setMarkers(markers: google.maps.LatLng[]) {
+    this.markers = markers;
   }
 }

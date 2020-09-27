@@ -5,18 +5,30 @@
     <div class="row">
       <div id=optionsDiv class="col my-auto text-left">
         <button type='button' id='ProfileBtn' class='btn' (click)='toProfile()'>MY PROFILE</button>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <label for='inputName'>Search By Name: </label>
         <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName' placeholder='Search By Name'>
-        <br/>
+        <br />
         <label for='inputState'>Search By State: </label>
         <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState' placeholder='Search By State'>
-        <br/>
+        <br />
         <label for='inputZipcode'>Search By Zipcode: </label>
-        <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode' placeholder='Search By Zipcode'>
+        <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode'
+          placeholder='Search By Zipcode'>
         <button type='button' id="searchBtn" name="zipcode" class='btn' (click)='newSearch()'>SEARCH</button>
-        <app-gmap></app-gmap>
+        <button class="btn" (click)="center()">MY LOCATION</button>
+        <br>
+        <google-map id="map">
+
+          <map-marker id="myMarker" [position]="this.ms.pos" title="myPos">
+          </map-marker>
+
+          <map-marker *ngFor="let m of this.markers" [position]="m" [icon]="this.bIcon">
+          </map-marker>
+
+        </google-map>
+
       </div>
 
       <div id="breweryDiv" class="col my-auto text-center">
@@ -38,7 +50,8 @@
           </tr>
           <tr *ngFor="let brewery of breweryList | nameFilter: search">
             <td>{{ brewery.name }}</td>
-            <td><button type="button" data-toggle="modal" data-target="#myModal" id=brewery.id class='btn' (click)='breweryInfo(brewery.id)'>View</button></td>
+            <td><button type="button" data-toggle="modal" data-target="#myModal" id=brewery.id class='btn'
+                (click)='breweryInfo(brewery.id)'>View</button></td>
           </tr>
         </table>
       </div>
@@ -53,23 +66,24 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h2 class="modal-title" id="profile-update-modal">{{ name }}</h2>
-            <button type="button" class="close" data-dismiss='modal'>
-                    ×
-            </button>
+          <button type="button" class="close" data-dismiss='modal'>
+            ×
+          </button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
           <form>
-              <div class="form-group">
-                <p>Phone Number: {{ phone }}</p>
-                <p>Address: {{ street }}, {{ city }}, {{ state }} {{ postalCode }}</p>
-              </div>
+            <div class="form-group">
+              <p>Phone Number: {{ phone }}</p>
+              <p>Address: {{ street }}, {{ city }}, {{ state }} {{ postalCode }}</p>
+            </div>
           </form>
         </div>
 
         <div class="modal-footer">
-          <button type="button" data-dismiss='modal' id="btn" name="toBrewery" class='btn' (click)='toBreweryPage()'>View Page</button>
+          <button type="button" data-dismiss='modal' id="btn" name="toBrewery" class='btn'
+            (click)='toBreweryPage()'>View Page</button>
         </div>
 
       </div>
