@@ -49,6 +49,7 @@ export class MapService {
   }
 
   refreshMap() {
+    console.log("refreshMap");
     if (this.map != null) {
       this.getMarkers();
       this.setCenter();
