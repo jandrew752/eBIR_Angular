@@ -1,6 +1,6 @@
 <div class="loginDiv">
       <div class='form-group'>
-        <form class='form-control'>
+        <form class='form-control' (submit)="confirm()">
           <div class='container' id='welcome-title'>
             <br/>
             <h1>eBIR</h1>
@@ -16,10 +16,10 @@
           <input [(ngModel)]='password' id='password' type='password' name='password' placeholder='Password'>
           <br/>
           <br/>
-          <button type='button' class='btn' name="login" (click)='confirm()'>LOGIN</button>
+          <button type='submit' class='btn' id="loginBtn" name="login" (click)='confirm()'>LOGIN</button>
           <br>
           <br/>
-          <button type='button' class='btn' name="toRegister" (click)='toRegister()'>Register a new account</button>
+          <button type='button' class='btn' id="toRegBtn" name="toRegister" (click)='toRegister()'>Register a new account</button>
         </form>
       </div>
 </div>
