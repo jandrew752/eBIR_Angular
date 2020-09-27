@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   phone = '';
   street = '';
   city = '';
+  search = '';
   state = '';
   inputState = '';
   inputName = '';
