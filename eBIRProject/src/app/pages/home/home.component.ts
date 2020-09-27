@@ -7,6 +7,7 @@ import { BreweryService } from 'src/app/services/brewery.service';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,6 @@ export class HomeComponent implements OnInit {
   favoritesList: Brewery[] = [];
   breweryList: Brewery[] = [];
   editedList: Brewery[] = [];
-  search = '';
   id: number = null;
   zipcode: number;
   name = '';
@@ -30,20 +30,19 @@ export class HomeComponent implements OnInit {
   state = '';
   inputState = '';
   inputName = '';
-  inputZipcode: number = null;
+  inputZipcode: number;
   postalCode = '';
   websiteUrl = '';
 
-  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) {}
+  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, private ms: MapService) {}
 
   ngOnInit(): void {
     // if (sessionStorage.getItem('currentUser') == null) {
     //   this.router.navigateByUrl('/login');
     //   alert('Please login');
     // }
-    this.breweryList = [];
-    this.bs.breweryList = [];
-    this.toList();
+    // this.bs.setQuery(this.inputState, this.inputZipcode, this.inputName);
+    this.updateBList();
   }
 
   toBreweryPage(): void {
@@ -56,34 +55,24 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/profile');
   }
 
-  toList(): void {
-    this.bs.insertBrewery();
-    this.breweryList = this.bs.breweryList;
+  newSearch() {
+    this.bs.page = 1;
+    this.updateBList();
   }
 
-  nameSearch(): void {
-    this.inputName = this.inputName.toLowerCase();
-    this.inputName.split(' ').join('_');
-    this.bs.insertBreweryByName(this.inputName);
-    this.breweryList = this.bs.breweryList;
-    this.inputState = '';
-    this.inputZipcode = null;
+  async updateBList() {
+    this.bs.setQuery(this.inputState, this.inputZipcode, this.inputName);
+    this.breweryList = await this.bs.getBrewery();
   }
 
-  stateSearch(): void {
-    this.inputState = this.inputState.toLowerCase();
-    this.inputState.split(' ').join('_');
-    this.bs.insertBreweryByState(this.inputState);
-    this.breweryList = this.bs.breweryList;
-    this.inputName = '';
-    this.inputZipcode = null;
+  async nextPage() {
+    this.bs.nextPage();
+    this.updateBList();
   }
 
-  zipcodeSearch(): void {
-    this.bs.insertBreweryByZipcode(this.inputZipcode);
-    this.breweryList = this.bs.breweryList;
-    this.inputState = '';
-    this.inputName = '';
+  async prevPage() {
+    this.bs.previousPage();
+    this.updateBList();
   }
 
   add(id: number): void {

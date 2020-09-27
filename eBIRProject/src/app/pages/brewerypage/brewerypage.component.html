@@ -46,7 +46,6 @@
   <div class="form-group" *ngIf="!hasSubmittedReview">
     <form [formGroup]="ratingsForm" (ngSubmit)="onSubmit()">
       <select formControlName="rating">
-        <option disabled>Select Rating</option>
         <option>Select Rating</option>
         <option *ngFor="let r of ratings">{{ r }}</option>
       </select>
@@ -91,7 +90,7 @@
                   </button>
               </div>
 
-              <div id="modalBody" class="modal-body">
+              <div id="modalBody" class="modal-body" style="word-wrap: break-word">
                 <p>{{ ratingText }}</p>
                 <p>{{ reviewText }}</p>
               </div>

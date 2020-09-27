@@ -9,22 +9,29 @@
         <br/>
         <label for='inputName'>Search By Name: </label>
         <input [(ngModel)]='inputName' id='inputName' type='text' name='inputName' placeholder='Search By Name'>
-        <button type='button' id="search" name="name" class='btn' (click)='nameSearch()'>SEARCH</button>
         <br/>
         <label for='inputState'>Search By State: </label>
         <input [(ngModel)]='inputState' id='inputState' type='text' name='inputState' placeholder='Search By State'>
-        <button type='button' id="search" name="state" class='btn' (click)='stateSearch()'>SEARCH</button>
         <br/>
         <label for='inputZipcode'>Search By Zipcode: </label>
         <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode' placeholder='Search By Zipcode'>
-        <button type='button' id="search" name="zipcode" class='btn' (click)='zipcodeSearch()'>SEARCH</button>
+        <button type='button' id="searchBtn" name="zipcode" class='btn' (click)='newSearch()'>SEARCH</button>
+        <app-gmap></app-gmap>
       </div>
 
       <div id="breweryDiv" class="col my-auto text-center">
+        <h2>Breweries</h2>
+        <div class="row">   
+          <div class="col my-auto">
+            <label for="search">Search Results By Name: </label>
+            <input type="text" name="search" [(ngModel)]='search' placeholder='Search Results By Name'>
+          </div>
+          <div class="btn-group btn-group-sm" role="group">
+            <btn class="btn" (click)="prevPage()">Prev</btn>
+            <btn class="btn" (click)="nextPage()">Next</btn>
+          </div>    
+        </div>
         <table width="100%">
-          <h2>Breweries</h2>
-          <label for="search">Search Results By Name: </label>
-          <input type="text" name="search" [(ngModel)]='search' placeholder='Search Results By Name'>
           <tr>
             <th>Brewery Name</th>
             <th>Brewery Info</th>
@@ -69,7 +76,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- TEMPORARY, FOR TESTING -->
-<app-gmap></app-gmap>
