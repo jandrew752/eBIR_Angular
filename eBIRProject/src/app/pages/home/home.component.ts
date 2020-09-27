@@ -55,44 +55,25 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/profile');
   }
 
+  newSearch() {
+    this.bs.page = 1;
+    this.updateBList();
+  }
+
   async updateBList() {
     this.bs.setQuery(this.inputState, this.inputZipcode, this.inputName);
     this.breweryList = await this.bs.getBrewery();
-    console.log(this.breweryList);
   }
 
-  // toList(): void {
-  //   this.bs.insertBrewery();
-  //   this.breweryList = this.bs.breweryList;
-  // }
-
-  /*
-  nameSearch(): void {
-    this.inputName = this.inputName.toLowerCase();
-    this.inputName.split(' ').join('_');
-    this.bs.insertBreweryByName(this.inputName);
-    this.breweryList = this.bs.breweryList;
-    this.inputState = '';
-    this.inputZipcode = null;
+  async nextPage() {
+    this.bs.nextPage();
+    this.updateBList();
   }
 
-  stateSearch(): void {
-    this.inputState = this.inputState.toLowerCase();
-    this.inputState.split(' ').join('_');
-    this.bs.insertBreweryByState(this.inputState);
-    this.breweryList = this.bs.breweryList;
-    this.inputName = '';
-    this.inputZipcode = null;
-    this.ms.setCenter();
+  async prevPage() {
+    this.bs.previousPage();
+    this.updateBList();
   }
-
-  zipcodeSearch(): void {
-    this.bs.insertBreweryByZipcode(this.inputZipcode);
-    this.breweryList = this.bs.breweryList;
-    this.inputState = '';
-    this.inputName = '';
-  }
-  */
 
   add(id: number): void {
     const b = this.favoriteSelect(id);

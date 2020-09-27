@@ -76,91 +76,19 @@ export class BreweryService {
   }
 
   async nextPage() {
-    this.page++;
-    this.getBrewery;
+    // if there's no more in the list, don't keep adding to the page
+    if (this.breweryList.length > 0) {
+      this.page++;
+      this.getBrewery;
+    }
   }
 
   async previousPage() {
-    this.page--;
+    if (this.page > 1) {
+      this.page--;
+    }
     this.getBrewery;
   }
-
-  /*
-
-  async insertBrewery(): Promise<void> {
-    this.breweryList = [];
-    const list = await this.getBrewery(20);
-    for (const brewery of list) {
-      const b = this.parseBreweryObject(brewery);
-      this.breweryList.push(b);
-    }
-  }
-
-  async insertBreweryByZipcode(zipcode: number | string): Promise<void> {
-    this.breweryList = [];
-    const list = await this.breweryByZipcode(zipcode);
-    for (const brewery of list) {
-      const b = this.parseBreweryObject(brewery);
-      this.breweryList.push(b);
-      console.log(b.latitude + ", " + b.longitude);
-    }
-    console.log(this.breweryList);
-  }
-
-  async insertBreweryByState(state: string): Promise<void> {
-    this.initStateDict();
-    this.breweryList = [];
-    const list = await this.breweryByState(state);
-    for (const brewery of list) {
-      const b = this.parseBreweryObject(brewery);
-      this.breweryList.push(b);
-      // console.log(b);
-    }
-    this.abbreviatedState = this.stateDictionary[state.split(' ').join('_')];
-    console.log(this.abbreviatedState);
-  }
-
-  async insertBreweryByName(name: string): Promise<void> {
-    this.breweryList = [];
-    const list = await this.breweryByName(name);
-    if (list === []) { this.insertBrewery(); }
-    else {
-      for (const brewery of list) {
-        const b = this.parseBreweryObject(brewery);
-        this.breweryList.push(b);
-      }
-    }
-  } */
-
-  /*
-  public breweryByName(name: string): Promise<any[]> {
-    if (name === '') { return this.getBrewery(20); }
-    try {
-      return this.http.get<any[]>('https://api.openbrewerydb.org/breweries/search?query=' + name).toPromise();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
- 
-
-  public breweryByZipcode(zipcode: string | number): Promise<any[]> {
-    try {
-      return this.http.get<any[]>('https://api.openbrewerydb.org/breweries?by_postal=' + zipcode).toPromise();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  public breweryByState(state: string): Promise<any[]> {
-    try {
-      return this.http.get<any[]>('https://api.openbrewerydb.org/breweries?by_state=' + state).toPromise();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  */
 
   public setQuery(state: string, zipcode: string | number, name: string) {
     let stateQ: string = 'by_state=';
@@ -179,11 +107,12 @@ export class BreweryService {
     }
 
     this.query = stateQ + '&' + nameQ + '&' + zipcodeQ;
-    console.log(this.query);
+
   }
 
   public async getBrewery(): Promise<Brewery[]> {
     try {
+      console.log(this.query + '&page=' + this.page);
       this.breweryList = await this.http.get<any[]>('https://api.openbrewerydb.org/breweries?per_page=20&' + this.query + '&page=' + this.page).toPromise();
       return this.breweryList;
     } catch (error) {
@@ -233,5 +162,4 @@ export class BreweryService {
   async submitReview(r: Review) {
     return await this.http.post<Review>(environment.API_URL + '/review', r).toPromise();
   }
-
 }

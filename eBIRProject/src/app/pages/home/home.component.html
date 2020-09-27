@@ -15,7 +15,7 @@
         <br/>
         <label for='inputZipcode'>Search By Zipcode: </label>
         <input [(ngModel)]='inputZipcode' id='inputZipcode' type="number" name='inputZipcode' placeholder='Search By Zipcode'>
-        <button type='button' id="searchBtn" name="zipcode" class='btn' (click)='updateBList()'>SEARCH</button>
+        <button type='button' id="searchBtn" name="zipcode" class='btn' (click)='newSearch()'>SEARCH</button>
         <app-gmap></app-gmap>
       </div>
 
@@ -26,8 +26,10 @@
             <label for="search">Search Results By Name: </label>
             <input type="text" name="search" [(ngModel)]='search' placeholder='Search Results By Name'>
           </div>
+          <div class="btn-group btn-group-sm" role="group">
             <btn class="btn" (click)="prevPage()">Prev</btn>
             <btn class="btn" (click)="nextPage()">Next</btn>
+          </div>    
         </div>
         <table width="100%">
           <tr>
@@ -74,6 +76,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- TEMPORARY, FOR TESTING -->
