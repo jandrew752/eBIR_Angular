@@ -19,14 +19,14 @@
         <table width="100%">
 
           <tr>
-            <th>Brewery Name</th>
+            <th colspan="2">Brewery Name</th>
             <th>Brewery Info</th>
             <th>Remove Favorites</th>
           </tr>
           <tr *ngFor="let fBrewery of favoriteBreweryList">
-            <td id="breweryName">{{ fBrewery.name }}</td>
-            <td><button type="button" id="btn" name="toBrewery" (click)='toBreweryPage(fBrewery.id)'>View</button></td>
-            <td><button type='button' class="fBrewery" id="fBrewery.id" (click)='removeFavorite(fBrewery.id)'>Remove</button></td>
+            <td id="breweryName" colspan="2">{{ fBrewery.name }}</td>
+            <td><button type="button" class="btn btn-sm" id="btn" name="toBrewery" (click)='toBreweryPage(fBrewery.id)'>View</button></td>
+            <td><button type='button' class="btn fBrewery btn-sm" id="fBrewery.id" (click)='removeFavorite(fBrewery.id)'>Remove</button></td>
           </tr>
         </table>
       </div>
