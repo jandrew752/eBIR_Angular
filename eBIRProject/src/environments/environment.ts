@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: `http://localhost:8006/eBIR`,
+  API_URL: `http://localhost:8080/eBIR`,
   MAP_KEY: 'AIzaSyCWPS2gQyPHfuIps7MxjDT6rY7wNM3BOpQ'
 };
 

@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   uEmail = '';
   isOpen = false;
   favoriteBreweryList: Brewery[] = [];
+  editedList: Brewery[] = [];
 
   constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient) { }
 
@@ -66,6 +67,11 @@ export class ProfileComponent implements OnInit {
     location.reload();
   }
 
+  toBreweryPage(id: number): void {
+    console.log(id);
+    this.router.navigateByUrl('/brewery/' + id);
+  }
+
   goBack(): void {
     this.router.navigateByUrl('/home');
   }
@@ -84,13 +90,13 @@ export class ProfileComponent implements OnInit {
     // if they don't change, we just pass the value from the currentUser
     let temp: User = new User();
     temp.username = this.u.username;
-    if (this.uFirstname.trim() !== '') { 
-      temp.firstName = this.uFirstname; 
+    if (this.uFirstname.trim() !== '') {
+      temp.firstName = this.uFirstname;
     } else {
       temp.firstName = this.u.firstName;
     }
     if (this.uLastname.trim() !== '') {
-       temp.lastName = this.uLastname; 
+       temp.lastName = this.uLastname;
     } else {
       temp.lastName = this.u.lastName;
     }
@@ -102,8 +108,8 @@ export class ProfileComponent implements OnInit {
     let noFavorites:boolean = (temp.favorites.length < 1);
 
     // maybe also check regex email on client side?
-    if (this.uEmail.trim() !== '') { 
-      temp.email = this.uEmail; 
+    if (this.uEmail.trim() !== '') {
+      temp.email = this.uEmail;
     } else {
       temp.email = this.u.email;
     }
@@ -115,7 +121,7 @@ export class ProfileComponent implements OnInit {
     } else {
       temp.password = this.u.password;
     }
-    
+
 
     // add favorites - temporary. openbreweryDB is down
     // temp.favorites = [];

@@ -17,15 +17,15 @@
         <br/>
         <h2>My Favorites</h2>
         <table width="100%">
-          
+
           <tr>
             <th>Brewery Name</th>
-            <th>Overall Rating</th>
+            <th>Brewery Info</th>
             <th>Remove Favorites</th>
           </tr>
           <tr *ngFor="let fBrewery of favoriteBreweryList">
             <td id="breweryName">{{ fBrewery.name }}</td>
-            <td id="breweryRating">{{ fBrewery.rating }}</td>
+            <td><button type="button" id="btn" name="toBrewery" (click)='toBreweryPage(fBrewery.id)'>View</button></td>
             <td><button type='button' class="fBrewery" id="fBrewery.id" (click)='removeFavorite(fBrewery.id)'>Remove</button></td>
           </tr>
         </table>
