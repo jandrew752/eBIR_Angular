@@ -11,7 +11,7 @@ export class MapService {
   pos: google.maps.LatLngLiteral;
   map: GoogleMap;
 
-  constructor(private bs: BreweryService) { }
+  constructor(private bs: BreweryService) {}
 
   setMap(m: GoogleMap) {
     this.map = m;
@@ -26,9 +26,7 @@ export class MapService {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           }
-          console.log(this.pos);
           this.map.panTo(this.pos);
-          
           this.map.zoom = 9;
         }
       );
@@ -47,13 +45,4 @@ export class MapService {
     }
     return ret;
   }
-
-  refreshMap() {
-    console.log("refreshMap");
-    if (this.map != null) {
-      this.getMarkers();
-      this.setCenter();
-    }
-  }
-
 }

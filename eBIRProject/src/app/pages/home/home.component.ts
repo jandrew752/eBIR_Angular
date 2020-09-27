@@ -1,6 +1,6 @@
 import { UserService } from 'src/app/services/user.service';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Brewery } from 'src/app/models/brewery';
 import { BreweryService } from 'src/app/services/brewery.service';
@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
 import { MapService } from 'src/app/services/map.service';
+import { GoogleMap } from '@angular/google-maps';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,14 @@ export class HomeComponent implements OnInit {
   postalCode = '';
   websiteUrl = '';
 
-  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, private ms: MapService) {}
+  // map related fields
+  zoom = 8;
+  options: google.maps.MapOptions;
+  @ViewChild(GoogleMap, {static: false}) map: GoogleMap;
+  markers: google.maps.LatLng[] = [];
+  bIcon: google.maps.Icon = { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"};
+
+  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, public ms: MapService) {}
 
   ngOnInit(): void {
     // if (sessionStorage.getItem('currentUser') == null) {
@@ -64,16 +72,19 @@ export class HomeComponent implements OnInit {
   async updateBList() {
     this.bs.setQuery(this.inputState, this.inputZipcode, this.inputName);
     this.breweryList = await this.bs.getBrewery();
+    this.refreshMap();
   }
 
   async nextPage() {
     this.bs.nextPage();
     this.updateBList();
+    this.refreshMap();
   }
 
   async prevPage() {
     this.bs.previousPage();
     this.updateBList();
+    this.refreshMap();
   }
 
   add(id: number): void {
@@ -126,5 +137,17 @@ export class HomeComponent implements OnInit {
         this.websiteUrl = b.websiteUrl;
       }
     });
+  }
+
+  // map related functions
+  async refreshMap() {
+    this.markers = this.ms.getMarkers();
+    this.ms.setMap(this.map);
+  }
+
+  center() {
+    this.ms.setMap(this.map);
+
+    this.ms.setCenter();
   }
 }

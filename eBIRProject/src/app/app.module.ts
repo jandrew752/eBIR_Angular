@@ -16,7 +16,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NameFilterPipe } from './filters/name-filter.pipe';
 import { MapFilterPipe } from './filters/mapfilter.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { GmapComponent } from './pages/home/gmap/gmap.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { GmapComponent } from './pages/home/gmap/gmap.component';
     ProfileComponent,
     NavbarComponent,
     NameFilterPipe,
-    MapFilterPipe,
-    GmapComponent
+    MapFilterPipe
   ],
   imports: [
     BrowserModule,
