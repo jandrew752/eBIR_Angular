@@ -3,7 +3,6 @@ import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { BreweryService } from './brewery.service';
 import { Brewery } from '../models/brewery';
 import { positionElements } from '@ng-bootstrap/ng-bootstrap/util/positioning';
-import { GmapComponent } from '../pages/home/gmap/gmap.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,6 @@ import { GmapComponent } from '../pages/home/gmap/gmap.component';
 export class MapService {
   pos: google.maps.LatLngLiteral;
   map: GoogleMap;
-  private mapComponent: GmapComponent
 
   constructor(private bs: BreweryService) {}
 
@@ -47,13 +45,4 @@ export class MapService {
     }
     return ret;
   }
-
-  refreshMap() {
-    console.log("refreshMap");
-    if (this.map != null) {
-      this.mapComponent.markers = this.getMarkers();
-      this.setCenter();
-    }
-  }
-
 }

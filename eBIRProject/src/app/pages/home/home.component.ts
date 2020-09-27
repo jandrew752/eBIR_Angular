@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
   markers: google.maps.LatLng[] = [];
   bIcon: google.maps.Icon = { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"};
 
-  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, private ms: MapService) {}
+  constructor(private bs: BreweryService, private us: UserService, private router: Router, private http: HttpClient, public ms: MapService) {}
 
   ngOnInit(): void {
     // if (sessionStorage.getItem('currentUser') == null) {
@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit {
 
   // map related functions
   async refreshMap() {
-    this.markers = await this.ms.getMarkers();
+    this.markers = this.ms.getMarkers();
     this.ms.setMap(this.map);
   }
 
