@@ -18,6 +18,7 @@ export class MapService {
   }
 
   setCenter() {
+    console.log("setCenter");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: Position) => {
